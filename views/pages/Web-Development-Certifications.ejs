@@ -1,0 +1,907 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 9]><html class="ie"><![endif]-->
+<!--[if !IE]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+
+  <%- include ("../partials/header.ejs") %>
+
+</head>
+
+<body lang="en">
+  <div id="container-nav">
+    <section id="nav" class="group wrapper">
+      <h3><a href="/" style="padding: 0">Steve Breese</a></h3>
+      <!-- Checkbox Hack markup -->
+      <input type="checkbox" id="toggle" />
+      <label for="toggle" onclick>Menu</label>
+      <!-- /Checkbox Hack markup -->
+      <%- include ("../partials/nav.ejs") %>
+
+    </section>
+  </div>
+  <%- include ("../partials/header-html.ejs") %>
+  <div id="container-content">
+    <article id="content">
+
+      <!-- Classes removed / #portfolio -->
+      <!-- Element(s)/Classes added from Bootstrap's Scaffolding -->
+
+      <section id="portfolio" class="container-fluid">
+
+        <link rel="stylesheet" type="text/css" href="./js/lib/jquery.tablesorter/themes/blue/style.css"
+          type="text/css" />
+
+        <script src="https://use.fontawesome.com/c76a6ebbea.js"></script>
+        <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+        <script src="./js/lib/jquery.tablesorter/jquery.tablesorter.js"></script>
+
+        <script>
+          $(document).ready(function () {
+            $(".skillTable").tablesorter();
+          }
+          );
+        </script>
+        <header>
+          <!--h3>Web Certifications</h3>
+                        <p>I am constantly sharpening the saw.</p-->
+          <h2 class="title center-align"><i class="fa fa-gears" aria-hidden="true"></i> technical skills... A thru Z
+          </h2>
+        </header>
+
+        <div class="row">
+
+          <article class="col-md-6">
+
+
+            <p>
+              <!--I first began developing websites on GeoCities over AOL dialup. &nbsp;I first got paid to build a web
+              application in 2000. &nbsp;It was a survey to gauge resident's preferences on various urban planning
+              techniques. The results of each survey were automatically emailed to the project owner. In 2003, I
+              developed a database driven website that cataloged every mile of bicycle trails in the Chicago area.
+              &nbsp;The site was an early adopter of AJAX which had recently been popularized by Google Maps.
+              &nbsp;Anytime I ran into a barrier of what could be done, I eagerly learned the basics of a new
+              programming language and devised new solutions for my applications. I then studied up on the more advanced
+              topics of the language and made a goal to get certified in it. &nbsp;I have kept this pattern of
+              professional development to this day.-->
+              Some people watch streaming TV in the evenings. I do online coding tutorials.
+            </p>
+            <p>
+              <!--Certifications are a way to set apart the people who really want to show that they believe in continuing
+              education.-->Being a great developer is dependent on being a great learner.
+            </p>
+
+            <style type="text/css">
+              #gradient-style {
+                font-family: 'Lucida Sans Unicode', 'Lucida Grande', Sans-Serif;
+                font-size: 12px;
+                width: 312px;
+                text-align: left;
+                border-collapse: collapse;
+                margin-left: 20px;
+                margin-right: 4px;
+                margin-bottom: 20px;
+              }
+
+              #gradient-style th {
+                font-size: 13px;
+                font-weight: normal;
+                background: #b9c9fe url('/img/table_graphics/gradhead.png') repeat-x;
+                border-top: 2px solid #d3ddff;
+                border-bottom: 1px solid #fff;
+                color: #039;
+                padding: 8px;
+              }
+
+              #gradient-style td {
+                border-bottom: 1px solid #fff;
+                color: #669;
+                border-top: 1px solid #fff;
+                background: #e8edff url('/img/table_graphics/gradback.png') repeat-x;
+                padding: 8px;
+              }
+
+              #gradient-style tfoot tr td {
+                background: #e8edff;
+                font-size: 12px;
+                color: #99c;
+              }
+
+              #gradient-style tbody tr:hover td {
+                background: #d0dafd url('/img/table_graphics/gradhover.png') repeat-x;
+                color: #339;
+              }
+            </style>
+
+            <table class="skillTable tablesorter" border="0"
+              style="width: 500px; display: inline-block; margin-left: 35px" id="gradient-style">
+              <thead>
+                <tr>
+                  <th style="">Category</th>
+                  <th style="">Technology/Skill</th>
+                  <th style="">Certificate</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!--tr>
+                  <td>Frontend</td>
+                  <td>Angular</td>
+                  <td><a href="/img/certificates/Code_School_Angular_Completion_Badge_Steve_Breese.pdf"
+                      target="_blank">Angular 1 Completion Badge</a></td>
+                </tr-->
+                <!--tr><td><a href="/MongoDB-Express-Angular2-Node-Tutorial-Progress#Angular-2-Official-Tutorial">Angular 2 Official Tutorial</a></td></tr-->
+                <tr>
+                  <td>Frontend</td>
+                  <td>Bootstrap</td>
+                  <td>
+                    <!--a href="https://certification.w3schools.com/w3certified.asp?email=sbreese@gmail.com"-->
+                    <a href="/img/certificates/W3Schools_2Certificates.jpg" target="_blank">Certified Bootstrap
+                      Developer</a></td>
+                </tr>
+                <tr>
+                  <td>Frontend</td>
+                  <td>Chrome Developer Tools</td>
+                  <td><a href="https://www.credential.net/ce8b82fb-1257-4b91-ab46-82a923d44694" target="_blank">Chrome
+                      Developer Tools credential badge</a></td>
+                </tr>
+                <tr>
+                  <td>Frontend</td>
+                  <td>CSS2</td>
+                  <td>
+                    <!--a href="https://certification.w3schools.com/w3certified.asp?email=sbreese@gmail.com"-->
+                    <a href="/img/certificates/W3Schools_2Certificates.jpg" target="_blank">Certified CSS Developer</a>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Frontend</td>
+                  <td>CSS3</td>
+                  <td><a href="/img/certificates/SoloLearn_CSS3_Course_Completed_Steve_Breese.pdf"
+                      target="_blank">SoloLearn CSS3 Certificate</a></td>
+                </tr>
+                <tr>
+                  <td>Backend</td>
+                  <td>Drupal</td>
+                  <td><strong style="font-size: 120%"><a
+                        href="/img/certificates/Acquia_Certified_Developer-Drupal_8_Steve_Breese.pdf"
+                        target="_blank">Acquia Certified Developer - Drupal 8</a></strong>
+                    <!--a href="/img/certificates/OSTraining-Introduction-to-Drupal-8-Steve_Breese.pdf" target="_blank">Introduction to Drupal 8 Certificate</a>,<br>
+        <a href="/img/certificates/OSTraining-Building-a-Basic-Site-Using-Drupal-8-Steve_Breese.pdf" target="_blank">Building a Basic Site Using Drupal 8</a>,<br>
+        <a href="/img/certificates/OSTraining-Extending-and-Managing-a-Drupal-8-Steve_Breese.pdf" target="_blank">Extending & Managing Drupal 8 Site</a>,<br>
+        <a href="/img/certificates/OSTraining-Building-Websites-with-Drupal-8-Steve_Breese.pdf" target="_blank">Building Websites with Drupal 8</a>,<br>
+        <a href="/img/certificates/OSTraining_Drupal-8-Layout-and-Theming_Steve-Breese.pdf" target="_blank">Drupal 8 Layout and Theming</a><br>
+        <a href="/img/certificates/OSTraining_Drupal-8-Module-Development_Steve_Breese.pdf" target="_blank">Drupal 8 Module Development</a-->
+                    <span style="color: darkgreen; font-weight: bold"></span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Frontend</td>
+                  <td>Front End</td>
+                  <td><a href="/img/certificates/FreeCodeCamp_FrontEndDevelopmentProgram_SteveBreese.pdf"
+                      target="_blank">Front End Development Certificate</a></td>
+                </tr>
+                <tr>
+                  <td>Workflow</td>
+                  <td>Git & GitHub</td>
+                  <td><a href="/img/certificates/Udacity_Git_and_GitHub_Steve_Breese.pdf" target="_blank">Completion
+                      Certificate for Git & GitHub</a></td>
+                </tr>
+                <tr>
+                  <td>Search advertising</td>
+                  <td>Google AdWords</td>
+                  <td><a href="/img/certificates/Google_AdWords-Search-Advertising-Certification_Steve_Breese.pdf"
+                      target="_blank">Google AdWords Search Certification</a></td>
+                </tr>
+                <tr>
+                  <td>Web analytics</td>
+                  <td>Google Analytics</td>
+                  <td><a href="/img/certificates/Google_Analytics-Certification_Steve_Breese.pdf" target="_blank">Google
+                      Analytics Certification</a></td>
+                </tr>
+                <tr>
+                  <td>Frontend</td>
+                  <td>HTML4</td>
+                  <td><a href="https://certification.w3schools.com/w3certified.asp?email=sbreese@gmail.com">Certified
+                      HTML Developer</a></td>
+                </tr>
+                <tr>
+                  <td>Frontend</td>
+                  <td>HTML5</td>
+                  <td><a href="https://certification.w3schools.com/w3certified.asp?email=sbreese@gmail.com">Certified
+                      HTML5 Developer</a></td>
+                </tr>
+
+                <tr>
+                  <td>Frontend</td>
+                  <td>HTML 5.2</td>
+                  <td><a href="/img/certificates/SoloLearn_HTML5_Course_Completed_Steve_Breese.pdf">SoloLearn HTML5
+                      Certificate</a></td>
+                </tr>
+
+                <tr>
+                  <td>Programming language</td>
+                  <td>JavaScript (ES3)</td>
+                  <td>
+                    <a href="https://certification.w3schools.com/w3certified.asp?email=sbreese@gmail.com">Certified
+                      JavaScript Developer</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Programming language</td>
+                  <td>JavaScript (ES5)</td>
+                  <td>
+                    <a href="/img/certificates/Aquent_Gymnasium_Javascript_foundations_Certificate_Steve_Breese.pdf"
+                      target="_blank">Gymnasium JavaScript Foundations Certificate</a><br>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Programming language</td>
+                  <td>JavaScript (ES6)</td>
+                  <td>
+                    <a href="/img/certificates/SoloLearn_ES6_Course_Completed_Steve_Breese.pdf"
+                      target="_blank">SoloLearn JavaScript
+                      Certificate</a>,<br>
+                    <a href="/img/certificates/Aquent_Gymnasium_Javascript_jQuery_Survival_Guide_Steve_Breese.pdf"
+                      target="_blank">JavaScript Survival Guide Certificate</a>
+
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Frontend</td>
+                  <td>jQuery</td>
+                  <td><a href="https://certification.w3schools.com/w3certified.asp?email=sbreese@gmail.com">Certified
+                      jQuery Developer</a>,<br>
+                    <a href="/img/certificates/Aquent_Gymnasium_jQuery_Building_Blocks_Steve_Breese.pdf"
+                      target="_blank">jQuery Building Blocks Certificate</a>,<br>
+                    <a href="/img/certificates/SoloLearn_jQuery_Course_Completed_Steve_Breese.pdf">SoloLearn jQuery
+                      Certificate</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Backend</td>
+                  <td>MEAN Stack</td>
+                  <td><a href="/img/certificates/MongoDBx_M101x_Certificate_edX_Breese.pdf" target="_blank">Certificate
+                      of Acheivement &mdash; MEAN Stack</a></td>
+                </tr>
+                <tr>
+                  <td>Database</td>
+                  <td>MongoDB</td>
+                  <td><a href="/img/certificates/M101JS_MongoDB_for_Node-js_Developers_Certificate_Breese.pdf"
+                      target="_blank">Completion Certificate for M101JS: MongoDB for Node.js Developer</a><a
+                      href="/MongoDB-Express-Angular2-Node-Tutorial-Progress#MongoDB_The_Definitive_Guide"
+                      title="MongoDB The Definitive Guide winter 2016 progress">s</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Database</td>
+                  <td>MySQL</td>
+                  <td><strong style="font-size: 120%"><a
+                        href="https://www.palatinegreenway.com/About/candidates.php?exam=3#page">Certified MySQL 5.0
+                        Developer</a></strong>
+                    <!--OLD LOCATION OF MYSQL CERTIFICATION:http://www.mysql.com/certification/candidates.php?exam=3#USA-->
+                  </td>
+                </tr>
+                <tr>
+                  <td>Backend</td>
+                  <td>Node.js</td>
+                  <td><a href="https://www.udemy.com/certificate/UC-QGXY92P6/">Complete Node.js Developer Course
+                      (ES6)</a><br>
+                    <a href="/img/certificates/Introducing_Node_Steve_Breese.pdf" target="_blank">Introducing Node.js
+                      Certificate (ES5</a><a href="/MongoDB-Express-Angular2-Node-Tutorial-Progress#Node-js_in_Action"
+                      title="Node.js in Action winter 2016 progress">)</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Full Stack</td>
+                  <td>Nuxt.js</td>
+                  <td><a href="https://vueschool.io/courses/nuxtjs-fundamentals" target="_target">C</a><a
+                      href="https://www.smashingmagazine.com/2020/02/music-manager-nuxtjs-expressjs/"
+                      target="_target">o</a><a href="https://forever-home-pwa.herokuapp.com/" target="_target">mpleted
+                      Nuxt.js site</a></td>
+                </tr>
+                <tr>
+                  <td>Programming language</td>
+                  <td>PHP</td>
+                  <td><strong style="font-size: 120%"><a href="http://www.zend.com/en/yellow-pages/ZEND023826">Zend
+                        Certified PHP Engineer</a></strong>
+                    <!--a href="https://certification.w3schools.com/w3certified.asp?email=sbreese@gmail.com">Certified PHP Developer</a-->
+                  </td>
+                </tr>
+                <tr>
+                  <td>Programming language</td>
+                  <td>Python 2</td>
+                  <td><a href="https://www.coursera.org/account/accomplishments/verify/SDMKRYC7MG">Python Coursera
+                      Verified Certificate</td>
+                </tr>
+                <tr>
+                  <td>Programming language</td>
+                  <td>Python 3</td>
+                  <td><a href="https://www.sololearn.com/Certificate/1073-12463186/pdf/">SoloLearn Python 3 Certificate
+                  </td>
+                </tr>
+                <tr>
+                  <td>Frontend</td>
+                  <td>React + Redux</td>
+                  <td><a href="/img/certificates/SoloLearn_React-Redux_Course_Completed_Steve_Breese.pdf"
+                      target="_blank">SoloLearn React + Redux
+                      Certificate</a></td>
+                </tr>
+                <tr>
+                  <td>Frontend</td>
+                  <td>Responsive web design (RWD)</td>
+                  <td><a href="/img/certificates/Aquent_Gymnasium_Responsive_Web_Design_Steve_Breese.pdf"
+                      target="_blank">Responsive Web Design Certificate</a></td>
+                </tr>
+
+                <tr>
+                  <td>Database</td>
+                  <td>SQL</td>
+                  <td><a href="/img/certificates/Code_School_Try_SQL_Completion_Badge_Steve_Breese.pdf"
+                      target="_blank">SQL Completion Badge</a>
+                </tr>
+
+                <tr>
+                  <td>Programming language</td>
+                  <td>Swift 4</td>
+                  <td>
+                    <a href="/img/certificates/SoloLearn_Swift4_Course_Completed_Steve_Breese.pdf"
+                      target="_blank">SoloLearn Swift 4 Certificate</a></td>
+
+                  <!--/*
+    20% complete as of January 25, 2019
+    30% complete as of January 26, 2019
+    40% complete as of January 27, 2019
+    50% complete as of January 28, 2019
+    60% complete as of January 29, 2019
+    70% complete as of January 30, 2019
+    80% complete as of January 31, 2019
+    90% complete as of February 1, 2019
+    (100% complete when I add a customization and deploy)
+    /*-->
+                </tr>
+                <tr>
+                  <td>Frontend</td>
+                  <td>User experience design (UXD)</td>
+                  <td><a href="/img/certificates/Aquent_Gymnasium_UX_Fundamentals_Steve_Breese.pdf" target="_blank">UX
+                      Fundamentals Certificate</a></td>
+                </tr>
+                <tr>
+                  <td>Frontend</td>
+                  <td>Vue.js</td>
+                  <td><a href="https://skill-keeper.herokuapp.com/" target="_blank">Coursetro
+                      Learn Vue.js by Example completed app</a></td>
+                </tr>
+                <tr>
+                  <td>Frontend</td>
+                  <td>Web Design</td>
+                  <td><a href='/img/certificates/Aquent_Gymnasium_Coding_for_Designers_Steve_Breese.pdf'>Coding for
+                      Designers Certificate</a></td>
+                </tr>
+                </tr>
+
+                <tr>
+                  <td>Backend</td>
+                  <td>XML, XML DOM, &amp; XSLT</td>
+                  <td><a href="https://certification.w3schools.com/w3certified.asp?email=sbreese@gmail.com">Certified
+                      XML Developer</a></td>
+                </tr>
+
+              </tbody>
+            </table>
+
+            <p><strong>BOLD text</strong> indicates industry-wide standard certification exam administered by a
+              professional test proctor</p>
+
+            <br>
+
+            <style>
+              @import url(https://fonts.googleapis.com/css?family=Expletus+Sans);
+
+              .progressBarTable {
+
+                font-family: "Expletus Sans", sans-serif;
+              }
+
+              /*
+        li {
+        
+            width: 50%;
+            float: left;
+            list-style-type: none;
+            
+            padding-right: 5.3333333%;
+        }
+        
+        li:nth-child(even) { margin-bottom: 5em;}
+        
+        h2 {
+            margin: 0 0 1.5em;
+            border-bottom: 1px solid #ccc;
+            
+            padding: 0 0 .25em;
+        }*/
+
+              /* Styling an indeterminate progress bar */
+
+              progress:not(value) {
+                /* Add your styles here. As part of this walkthrough we will focus only on determinate progress bars. */
+              }
+
+              /* Styling the determinate progress element */
+
+              progress[value] {
+                /* Get rid of the default appearance */
+                appearance: none;
+
+                /* This unfortunately leaves a trail of border behind in Firefox and Opera. We can remove that by setting the border to none. */
+                border: none;
+
+                /* Add dimensions */
+                width: 100%;
+                height: 20px;
+
+                /* Although firefox doesn't provide any additional pseudo class to style the progress element container, any style applied here works on the container. */
+                background-color: whiteSmoke;
+                border-radius: 3px;
+                box-shadow: 0 2px 3px rgba(0, 0, 0, .5) inset;
+
+                /* Of all IE, only IE10 supports progress element that too partially. It only allows to change the background-color of the progress value using the 'color' attribute. */
+                color: royalblue;
+
+                position: relative;
+                margin: 0 0 1.5em;
+              }
+
+              /*
+        Webkit browsers provide two pseudo classes that can be use to style HTML5 progress element.
+        -webkit-progress-bar -> To style the progress element container
+        -webkit-progress-value -> To style the progress element value.
+        */
+
+              progress[value]::-webkit-progress-bar {
+                background-color: whiteSmoke;
+                border-radius: 3px;
+                box-shadow: 0 2px 3px rgba(0, 0, 0, .5) inset;
+              }
+
+              progress[value]::-webkit-progress-value {
+                position: relative;
+
+                background-size: 35px 20px, 100% 100%, 100% 100%;
+                border-radius: 3px;
+
+                /* Let's animate this */
+                animation: animate-stripes 5s linear infinite;
+              }
+
+              @keyframes animate-stripes {
+                100% {
+                  background-position: -100px 0;
+                }
+              }
+
+              /* Let's spice up things little bit by using pseudo elements. */
+
+              progress[value]::-webkit-progress-value:after {
+                /* Only webkit/blink browsers understand pseudo elements on pseudo classes. A rare phenomenon! */
+                content: '';
+                position: absolute;
+
+                width: 5px;
+                height: 5px;
+                top: 7px;
+                right: 7px;
+
+                background-color: white;
+                border-radius: 100%;
+              }
+
+              /* Firefox provides a single pseudo class to style the progress element value and not for container. -moz-progress-bar */
+
+              progress[value]::-moz-progress-bar {
+                /* Gradient background with Stripes */
+                background-image:
+                  -moz-linear-gradient(135deg,
+                    transparent,
+                    transparent 33%,
+                    rgba(0, 0, 0, .1) 33%,
+                    rgba(0, 0, 0, .1) 66%,
+                    transparent 66%),
+                  -moz-linear-gradient(top,
+                    rgba(255, 255, 255, .25),
+                    rgba(0, 0, 0, .2)),
+                  -moz-linear-gradient(left, #09c, #f44);
+
+                background-size: 35px 20px, 100% 100%, 100% 100%;
+                border-radius: 3px;
+
+                /* Firefox doesn't support CSS3 keyframe animations on progress element. Hence, we did not include animate-stripes in this code block */
+              }
+
+              /* Fallback technique styles */
+              .progress-bar {
+                background-color: whiteSmoke;
+                border-radius: 3px;
+                box-shadow: 0 2px 3px rgba(0, 0, 0, .5) inset;
+
+                /* Dimensions should be similar to the parent progress element. */
+                width: 100%;
+                height: 20px;
+              }
+
+              .progress-bar span {
+                background-color: royalblue;
+                border-radius: 3px;
+
+                display: block;
+                text-indent: -9999px;
+              }
+
+              p[data-value] {
+
+                position: relative;
+              }
+
+              /* The percentage will automatically fall in place as soon as we make the width fluid. Now making widths fluid. */
+
+              p[data-value]:after {
+                content: attr(data-value) '%';
+                position: absolute;
+                right: 0;
+              }
+
+              .html5::-webkit-progress-value,
+              .python::-webkit-progress-value {
+                /* Gradient background with Stripes */
+                background-image:
+                  -webkit-linear-gradient(135deg,
+                    transparent,
+                    transparent 33%,
+                    rgba(0, 0, 0, .1) 33%,
+                    rgba(0, 0, 0, .1) 66%,
+                    transparent 66%),
+                  -webkit-linear-gradient(top,
+                    rgba(255, 255, 255, .25),
+                    rgba(0, 0, 0, .2)),
+                  -webkit-linear-gradient(left, #09c, #f44);
+              }
+
+              .css3::-webkit-progress-value,
+              .php::-webkit-progress-value {
+                /* Gradient background with Stripes */
+                background-image:
+                  -webkit-linear-gradient(135deg,
+                    transparent,
+                    transparent 33%,
+                    rgba(0, 0, 0, .1) 33%,
+                    rgba(0, 0, 0, .1) 66%,
+                    transparent 66%),
+                  -webkit-linear-gradient(top,
+                    rgba(255, 255, 255, .25),
+                    rgba(0, 0, 0, .2)),
+                  -webkit-linear-gradient(left, #09c, #ff0);
+              }
+
+              .jquery::-webkit-progress-value,
+              .node-js::-webkit-progress-value {
+                /* Gradient background with Stripes */
+                background-image:
+                  -webkit-linear-gradient(135deg,
+                    transparent,
+                    transparent 33%,
+                    rgba(0, 0, 0, .1) 33%,
+                    rgba(0, 0, 0, .1) 66%,
+                    transparent 66%),
+                  -webkit-linear-gradient(top,
+                    rgba(255, 255, 255, .25),
+                    rgba(0, 0, 0, .2)),
+                  -webkit-linear-gradient(left, #09c, #690);
+              }
+
+              /* Similarly, for Mozillaa. Unfortunately combining the styles for different browsers will break every other browser. Hence, we need a separate block. */
+
+              .html5::-moz-progress-bar,
+              .php::-moz-progress-bar {
+                /* Gradient background with Stripes */
+                background-image:
+                  -moz-linear-gradient(135deg,
+                    transparent,
+                    transparent 33%,
+                    rgba(0, 0, 0, .1) 33%,
+                    rgba(0, 0, 0, .1) 66%,
+                    transparent 66%),
+                  -moz-linear-gradient(top,
+                    rgba(255, 255, 255, .25),
+                    rgba(0, 0, 0, .2)),
+                  -moz-linear-gradient(left, #09c, #f44);
+              }
+
+              .css3::-moz-progress-bar,
+              .php::-moz-progress-bar {
+                  /* Gradient background with Stripes */
+                  background-image:
+                    -moz-linear-gradient(135deg,
+                      transparent,
+                      transparent 33%,
+                      rgba(0, 0, 0, .1) 33%,
+                      rgba(0, 0, 0, .1) 66%,
+                      transparent 66%),
+                    -moz-linear-gradient(top,
+                      rgba(255, 255, 255, .25),
+                      rgba(0, 0, 0, .2)),
+                    -moz-linear-gradient(left, #09c, #ff0);
+                }
+
+                .jquery::-moz-progress-bar,
+                .node-js::-moz-progress-bar {
+                  /* Gradient background with Stripes */
+                  background-image:
+                    -moz-linear-gradient(135deg,
+                      transparent,
+                      transparent 33%,
+                      rgba(0, 0, 0, .1) 33%,
+                      rgba(0, 0, 0, .1) 66%,
+                      transparent 66%),
+                    -moz-linear-gradient(top,
+                      rgba(255, 255, 255, .25),
+                      rgba(0, 0, 0, .2)),
+                    -moz-linear-gradient(left, #09c, #690);
+                }
+
+                /* Now we are good to duplicate html code for other skills and then add the css code for the new skill based on data-skill */
+
+
+                /* THE END (https://css-tricks.com/html5-progress-element/) */
+            </style>
+            <h4>Currently Studying</h4>
+            <table class="progressBarTable skillTable tablesorter"
+              style="width: 555px; display: inline-block; margin-left: 0px" id="gradient-style">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Technology/Skill</th>
+                  <th>Source Material</th>
+                  <th style="width: 200px">Progress</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!--tr>
+            <td>Workflow</td>
+        <td>JS Coding Standards</td>
+        <td><a href="https://google.github.io/styleguide/jsguide.html" target="_target">Google JavaScript Style Guide</a>
+            </td>
+        <td>
+            <p style="width:85%" data-value="85">JS Coding Standards</p>
+            <progress max="100" value="85" class="html5">
+            <div class="progress-bar">
+                <span style="width: 85%">85%</span>
+            </div>
+        </progress>
+        
+        </td></tr>
+        <tr>
+                <td>Programming Language</td>
+                <td>bash</td>
+                <td><a href="https://doc.lagout.org/operating%20system%20/linux/Beginning%20Linux%20Programming%2C%204%20Ed.pdf" target="_target">Unix Shell Scripting (Chapter 2 of Beginning Linux Programming)</a>
+                    
+                    <td><p style="width:64%" data-value="64">bash</p>
+                        <progress max="100" value="64" class="html5">
+                        <div class="progress-bar">
+                            <span style="width: 64%">64%</span>
+                        </div>
+                    </progress>
+        
+                    </td></tr>
+                </td>
+        </tr-->
+                <% let percentCompleteNext = 77; %>
+                <tr>
+                  <td>Full Stack</td>
+                  <td>Angular + NestJS</td>
+                  <td><a href="https://www.sololearn.com/Course/fullstack/" target="_target">SoloLearn's Angular +
+                      NestJS</a>
+                    <!--54% complete (as of February 6, 2019)-->
+                  </td>
+                  <td>
+                    <p style="width:<%= percentCompleteNext %>%" data-value="<%= percentCompleteNext %>">&nbsp;</p>
+                    <progress max="100" value="<%= percentCompleteNext %>" class="html5">
+                      <div class="progress-bar">
+                        <span style="width: <%= percentCompleteNext %>"><%= percentCompleteNext %>%</span>
+                      </div>
+                    </progress>
+
+                  </td>
+                </tr>
+                </tr>
+                <!-- 2 / 38 = -->
+                <% let percentCompleteReact = 47; %>
+                <tr>
+                  <td>Full Stack</td>
+                  <td>React</td>
+                  <td><a href="https://youtu.be/4UZrsTqkcW4?t=17350" target="_target">Full React Course 2020 - Funamentals, Hooks, Context API, React Router, Custom Hooks</a>
+                    <!--42% complete (as of February 6, 2019)-->
+                  </td>
+                  <td>
+                    <p style="width:<%= percentCompleteReact %>%" data-value="<%= percentCompleteReact %>">&nbsp;</p><progress
+                      max="100" value="<%= percentCompleteReact %>" class="html5">
+                      <div class="progress-bar">
+                        <span style="width: <%= percentCompleteReact %>%"><%= percentCompleteReact %>%</span>
+                      </div>
+                    </progress>
+                  </td>
+                
+                </tr>
+              </tbody>
+            </table>
+            <br>
+            <h4>Spanish Language Certifications</h4>
+            <table style="width: 450px; display: inline-block; margin-left: 55px" id="gradient-style">
+              <tbody>
+                <tr>
+                  <th style="width: 200px">Certificate Name</th>
+                  <th style="width: 250px">Issuing Authority</th>
+                </tr>
+                <tr>
+                  <td><a href="/img/certificates/Harper-College_Spanish-Second-Language_Steve_Breese.pdf"
+                      target="_blank">Spanish as a Second Language Certificate</a>
+                  </td>
+                  <td>
+                    Harper College, Palatine Illinois
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="/img/certificates/Spanish_BSP101x_Certificate_edX_Breese.pdf" target="_blank">Certificate
+                      in Basic Spanish</a>
+                  </td>
+                  <td>
+                    Universidad Politecnica de Valencia through edX
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href="https://www.duolingo.com/sbreese">Duolingo Spanish Fluency: Advanced (Estimated)</a>
+                  </td>
+                  <td>
+                    Duolingo, Inc.
+                  </td>
+                </tr>
+            </table>
+
+
+
+          </article>
+          <article class="col-md-6">
+            <table style="border: 0; width: 250px; display: inline-block; margin-left: 50px; margin-bottom: 45px;">
+              <tbody>
+                <tr>
+                  <td style="text-align: center; height: 100px;"><a
+                      href="http://www.zend.com/en/yellow-pages/ZEND023826"
+                      title="verification for Zend Certified Engineer" target="_blank"><img alt=""
+                        src="/img/icons/ICON_ZCPE.jpg"></a></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center; height: 100px;"><a
+                      href="https://certification.acquia.com/registry?fname=Steve&lname=Breese&exam=All"
+                      title="verification for Acquia Certified Developer - D8" target="_blank"><img alt=""
+                        src="/img/icons/LOGO_Acquia_Certified_Deeloper.png" style="width: 120px; margin-top: 14px"></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="text-align: center; height: 70px;"><a
+                      href="https://www.palatinegreenway.com/About/candidates.php?exam=3#page"
+                      title="verification for MySQL Certified Developer" target="_blank"><img alt=""
+                        src="/img/icons/ICON_MySQL.png" width="100" height="63" style="margin-top: 14px"></a></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center; height: 100px;"><a
+                      href="https://www.udemy.com/certificate/UC-QGXY92P6/" title="Udemy" target="_blank"><img
+                        alt="Udemy" src="/img/icons/LOGO_Udemy.png" style="width: 86px; margin-top: 14px"></a></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center; height: 100px;"><a href="https://university.mongodb.com/"
+                      title="Mongo University" target="_blank"><img alt="" src="/img/icons/ICON_Mongo_University.png"
+                        style="margin-top: 14px"></a></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center; height: 100px;"><a
+                      href="https://www.coursera.org/account/accomplishments/verify/SDMKRYC7MG" title="Coursera"
+                      target="_blank"><img alt="Coursera" src="/img/icons/ICON_Coursera.png"></a></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center; height: 100px;"><a href="https://www.codeschool.com/"
+                      title="Code School" target="_blank"><img alt="Code School"
+                        src="/img/icons/LOGO_Code_School.png"></a></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center; height: 100px;"><a
+                      href="https://certification.w3schools.com/w3certified.asp?email=sbreese@gmail.com"
+                      title="W3 Schools" target="_blank"><img alt="" src="/img/icons/LOGO_w3certified_250.png"
+                        style="width: 160px;"></a></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center; height: 110px;"><a href="https://www.freecodecamp.com/"
+                      title="Free Code Camp" target="_blank"><img alt="freeCodeCamp" style="width: 86px"
+                        src="/img/icons/LOGO_freeCodeCamp.png"></a></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center; height: 110px;"><a href="https://www.udacity.com/" title="Udacity"
+                      target="_blank"><img alt="Udacity" style="width: 100px" src="/img/icons/LOGO_Udacity.png"></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="text-align: center; height: 100px;"><a href="https://www.edx.org" title="edX"
+                      target="_blank"><img alt="edX" width="100" height="46" src="/img/icons/LOGO_edX.png"></a></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center; height: 70px;"><a href="https://www.sololearn.com/Profile/12463186"
+                      title="Solo Learn" target="_blank"><img alt="Solo Learn" src="/img/icons/LOGO_SoloLearn.png"
+                        style="height:23px;width:150px;"></a></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center; height: 100px;"><a href="https://www.ostraining.com/"
+                      title="OSTraining" target="_blank"><img alt="OSTraining" src="/img/icons/LOGO_OSTraining.jpg"
+                        style="height:86px;width:86px;"></a></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center; height: 100px;"><a href="http://gymnasium.aquent.com/"
+                      title="Aquent Gymnasium" target="_blank"><img alt="Aquent Gymnasium"
+                        src="/img/icons/LOGO_Aquent_Gymnasium.png"></a></td>
+                </tr>
+              </tbody>
+            </table>
+            <div>Free resources for developers:<br></div>
+
+            <div><br><br>
+              <a href="https://jscomplete.com/learn/1rd-reactful" target="_blank">Guide to Creating Node & React
+                Development Environment</a>
+              <br><br>
+              <a href="https://render.com/" target="_blank">render.com - Free static sites</a>
+              <br><br>
+              <a href="https://netlify.com" target="_blank">netlify.com - Free hosting</a>
+              <br><br>
+              <a href="https://unsplash.com/" target="_blank">unsplash.com - Free images</a>
+              <br><br>
+              <a href="https://freepik.com" target="_blank">freepikc.com - Free images, icons, illustrations</a>
+              <br><br>
+              <a href="https://icons.eosdesignsystem.com/" target="_blank">icons.eosdesignsystem.com - free icons</a>
+              <br><br>
+              <a href="https://fontawesome.com" target="_blank">fontawesome.com - The most popular icon set</a>
+              <br><br>
+              <a href="https://gtmetrix.com" target="_blank">gtmetrix.com - Analize the loading speed</a>
+              <br><br>
+              <a href="https://resume.com" target="_blank">resume.com - Free resume builder</a>
+              <br><br>
+              <a href="https://www.discudemy.com/" target="_blank">discudemy.com - Free Udemy courses</a>
+              <br><br>
+              <a href="https://www.whoishostingthis.com/resources/javascript/" target="_blank">JavaScript ecosystem</a>
+              <br><br>
+              <a href="https://bundlephobia.com/" target="_blank">bundlephobia.com - Fight bloat</a>
+            </div>
+
+            <div>
+              <table style="border:0; width: 250px; display: inline-block; margin-left: 50px; margin-top: 45px;">
+                <tbody>
+                  <tr>
+                    <td style="text-align: center; height: 100px;"><a href="https://www.duolingo.com/sbreese"><img
+                          alt="" src="/img/certificates/Duolingo_silver_badge_Steve_Breese_58.png" border="0"
+                          width="100" height="95"></a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p><a href="/70-480">.</a></p>
+
+          </article>
+        </div>
+      </section>
+
+    </article>
+  </div>
+  <%- include ("../partials/footer.ejs") %>
+</body>
+
+</html>
