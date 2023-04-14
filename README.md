@@ -30,6 +30,7 @@ $ heroku create
 $ git push heroku main
 $ heroku open
 ```
+
 or
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
@@ -43,3 +44,15 @@ For more information about using Node.js on Heroku, see these Dev Center article
 - [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
 - [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
 - [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+
+### original links from starter HTML:
+
+- [How Heroku Works](https://devcenter.heroku.com/articles/how-heroku-works)
+- [Node.js Getting Started repo](https://github.com/heroku/node-js-getting-started)
+- [Deploying Node Apps on Heroku](https://devcenter.heroku.com/articles/deploying-nodejs)
+
+### original assets to remove after confirmation they are no longer used:
+
+- public/stylesheets/main.css
+- public/lang-logo.png
+- public/node.svg
