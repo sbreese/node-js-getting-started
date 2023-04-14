@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <%- include ("../partials/header.ejs") %>
+</head>
+
+<body lang="en">
+  <div id="container-nav">
+    <section id="nav" class="group wrapper">
+      <h3><a href="/" style="padding: 0">Steve Breese</a></h3>
+      <!-- Checkbox Hack markup -->
+      <input type="checkbox" id="toggle" />
+      <label for="toggle" onclick>Menu</label>
+      <!-- /Checkbox Hack markup -->
+      <%- include ("../partials/nav.ejs") %>
+
+    </section>
+  </div>
+  <%- include ("../partials/header-html.ejs") %>
+  <div id="container-content">
+    <article id="content">
+
+      <!-- Classes removed / #portfolio -->
+      <!-- Element(s)/Classes added from Bootstrap's Scaffolding -->
+
+      <section id="portfolio" class="container-fluid">
+
+        <header>
+          <h3>About Steve</h3>
+          <p></p>
+        </header>
+
+        <div class="row">
+
+          <article class="col-md-6">
+
+            <!-- ///////////////////////// BEGIN CONTENT ///////////////////////////// -->
+            <style type="text/css">
+              .panelistImage {
+                height: 150px;
+                width: 150px;
+
+              }
+
+              .panelImageTD {
+                height: 150px;
+                width: 150px;
+              }
+
+              label {
+                font-weight: bold;
+                /*font-size: 1.20em;
+		font-family: 'Trykker', serif;*/
+              }
+            </style>
+
+            <div style="display:table-row;">
+              <div style="padding-right: 19px; vertical-align: middle; display: table-cell"><img
+                  alt="Steve Breese, Web App Developer" title="Steve Breese, Web App Developer" class="panelistImage"
+                  src="/img/photos/Steve_Breese.jpg" height="200" width="200"></div>
+              <div style="float: left; width: 658px">
+                <p>
+                  Steve Breese is a web developer with over 12 years of experience. &nbsp;He graduated from the
+                  University of Illinois at Urbana-Champaign with a double major in Geographic Information Systems (GIS)
+                  and Urban Planning. &nbsp;He began his career as a GIS Analyst for Chicago Metropolitan Agency for
+                  Planning and the Forest Preserve District of DuPage County. Later he worked as a Senior Systems
+                  Engineer at Nokia HERE (formerly NAVTEQ) where he got a start at developing single page applications.
+                  &nbsp;Next, he helped expand the functionality of United Airline's cutting edge Flight Checkin
+                  application. &nbsp;Then, he architected and developed web applications for Municipal GIS Parnters (MGP
+                  Inc) at their Des Plaines headquarters. In his current position, he develops performant and
+                  easy-to-maintain web applications for big-named clients.</p>
+                <p>He is continuously educating himself on the latest web development technologies. &nbsp;Since starting
+                  his career, he has earned a GIS Certificate from Elmhurst College in 2008 and a Master's degree in
+                  Technology Management from Eastern Illinois University in 2012. &nbsp; Over the years he has earned
+                  many certifications in the leading open source web development technologies including PHP, Python,
+                  MySQL, JavaScript, DOM API, HTML5 APIs, jQuery, HTML5, CSS, Bootstrap &amp; XML/XSLT. &nbsp;If you
+                  want to know his currently favorite JavaScript framework, just ask!</p>
+                <p>He is always seeking to push the limits of the web by implementing the coolest HTML5 advanced
+                  technologies in his applications while providing fallback mechanisms for older browsers. &nbsp;In this
+                  capacity he has developed dozens of useful websites and web applications.
+                </p>
+                <p>When I am not coding awesome web applications, I am likely running outdoors or on a treadmill. I
+                  invite you to <a href="Journey-Towards-the-CARA-Hall-of-Fame">follow my journey in my quest to be
+                    inducted into the Chicago Area Runners Association Circuit Hall of Fame</a></p>
+
+              </div><!-- END SUMMARY -->
+            </div><!-- END WRAP PIC & SUMMARY -->
+
+            <!--  BEGIN Vertically Align Div -->
+            <style>
+              .container_table_row {
+                display: table-row;
+              }
+
+              .content_vertical_align_middle {
+                width: 180px;
+                display: table-cell;
+                vertical-align: middle;
+                text-align: center;
+              }
+            </style>
+
+            <div class="display:table">
+              <div class="container_table_row">
+
+                <div class="content_vertical_align_middle">
+                  <a style="margin-bottom: 60px; margin-right: 20px"
+                    href="http://www.zend.com/en/store/education/certification/authenticate.php/ClientCandidateID/ZEND023826/RegistrationID/262538976"
+                    title="Certificate Authentication"><img alt="" title="" src="/img/icons/ICON_ZCPE.jpg" border="0"
+                      height="80" width="86" /></a>
+                </div>
+
+                <div class="content_vertical_align_middle">
+                  <a href="http://www.linkedin.com/in/stevebreese1" title="Steve's LinkedIn page"><img
+                      alt="Steve's LinkedIn page" title="Steve's LinkedIn page" src="/img/icons/ICON_Linkedin.png"
+                      border="0" height="150" width="150" /></a>
+                </div>
+
+                <div class="content_vertical_align_middle">
+                  <a href="https://www.palatinegreenway.com/About/candidates.php?exam=3#page"
+                    title="Steve's MySQL Certification verification page"><img
+                      alt="Steve's MySQL Certification verification page"
+                      title="Steve's MySQL Certification verification page" src="/img/icons/ICON_MySQL.png" border="0"
+                      height="103" width="164" /></a>
+                </div>
+
+                <div class="content_vertical_align_middle">
+                  <a href="https://certification.w3schools.com/w3certified.asp?email=sbreese@gmail.com" title=""><img
+                      alt="" title="" src="/img/icons/LOGO_w3certified_250.png" border="0" height="56" width="164" /></a>
+                </div>
+
+              </div>
+            </div>
+
+
+            <!-- /////////////////////////  END CONTENT ////////////////////////////// -->
+          </article>
+
+        </div>
+
+  </div>
+
+  </section>
+
+  </article>
+  </div>
+  <%- include ("../partials/footer.ejs") %>
+</body>
+
+</html>
