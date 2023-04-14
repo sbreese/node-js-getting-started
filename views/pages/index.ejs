@@ -5,8 +5,16 @@
 </head>
 
 <body>
-
-  <%- include ("../partials/nav.ejs") %>
+  <div id="container-nav">
+    <section id="nav" class="group wrapper">
+      <h3>Steve Breese</h3>
+      <!-- Checkbox Hack markup -->
+      <input type="checkbox" id="toggle" />
+      <label for="toggle" onclick>Menu</label>
+      <!-- /Checkbox Hack markup -->
+      <%- include ("../partials/nav.ejs") %>
+    </section>
+  </div>
 
 <div class="jumbotron text-center">
   <div class="container">
