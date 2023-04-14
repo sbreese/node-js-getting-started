@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+
+    <%- include ("../partials/header.ejs") %>
+
+  </head>
+
+  <body lang="en">
+    <div id="container-nav">
+      <section id="nav" class="group wrapper">
+        <h3><a href="/" style="padding: 0">Steve Breese</a></h3>
+            <!-- Checkbox Hack markup -->
+            <input type="checkbox" id="toggle" />
+            <label for="toggle" onclick>Menu</label>
+            <!-- /Checkbox Hack markup -->
+            <%- include ("../partials/nav.ejs") %> 
+      
+      </section>
+    </div>
+    <%- include ("../partials/header-html.ejs") %>
+    <div id="container-content">
+      <article id="content">
+      
+      <!-- Classes removed / #portfolio -->
+      <!-- Element(s)/Classes added from Bootstrap's Scaffolding -->
+      
+        <section id="portfolio" class="container-fluid">
+        
+                    <header>
+                        <h3>M.E.A.N. Full Stack Development</h3>
+                        <p>I have developed several web applications using the MEAN stack.</p>
+                    </header>
+                    
+                    <div class="row">
+                    
+                        <article class="col-md-6">
+
+<div class="content_margin_left_right" style="margin: 0 15px 0; width: 823px;">
+
+<h3 style="margin-top: 20px">Bottleneck City</h3>
+
+  <h3 style="margin-top: 20px">Marriott eBreaks Single Page Application</h3>
+  <div>
+This <q>Marriott eBreaks</q> Single Page App is the epitome of how to develop a fully functional front end with Angular JavaScript framework.
+  </div>
+  <div><a href="http://hs2devlx05.hs2solutions.com/creative/ebreaks-v2/#/home"><img alt="" title="Marriott eBreaks" src="/img/screenshots/SCREEN_Marriott_eBreaks_SPA.png" border="0">
+  </a></div>
+
+  <h3 style="margin-top: 20px">Marriott Traveler Type</h3>
+  <div>
+I integrated the Angular framework within the <q>Marriott Traveler Type</q> web app in order to implement the sticky navigation.
+  </div>
+  <div><a href="http://findyourmarriotttravelertype.com/"><img alt="" title="Marriott Traveler Type" src="/img/screenshots/SCREEN_Marriott_Traveler_Type_Angular.png" border="0"></a></div>
+    <h3 style="margin-top: 20px">www.SteveBreese.com</h3>
+    <div>
+My personal website is powered by Node, Express, MongoDB & Mongoose and utilizes custom media queries to achieve responsive design goals.
+  </div>
+  <div><a href="http://www.SteveBreese.com"><img alt="" title="SteveBreese.com" src="/img/screenshots/SCREEN_SteveBreese-com_Bootstrap.png" border="0"></a></div>
+
+
+<h3 style="margin-top: 20px">The Supporting Cast</h3>
+M.E.A.N. sites typically implement a wide array of open source technologies and my M.E.A.N. apps are no different.
+<ul>
+<li>Gulp build system</li>
+<li>Bower package manager</li>
+<li>Foundation responsive front-end framework</li>
+<li>Bootstrap mobile-first front-end framework</li>
+<li>Passport authentication middleware</li>
+<li>nodemon automatically restart</li>
+<li>Mongoose object document mapper</li>
+<li>Heroku cloud platform as a service</li>
+<li>Git distributed version control system</li>
+<li>Jade &amp; EJS templating engines</li>
+</ul>
+  </div>
+
+</div>					
+
+
+                        </article>
+</div>
+                    
+                </section>
+    
+      </article>
+    </div>
+
+    <%- include ("../partials/footer.ejs") %>
+  </body>
+</html>
