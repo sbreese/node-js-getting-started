@@ -1,0 +1,461 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+
+    <%- include ("../partials/header.ejs") %>
+
+  </head>
+
+  <body lang="en">
+    <div id="container-nav">
+      <section id="nav" class="group wrapper">
+        <h3><a href="/" style="padding: 0">Steve Breese</a></h3>
+            <!-- Checkbox Hack markup -->
+            <input type="checkbox" id="toggle" />
+            <label for="toggle" onclick>Menu</label>
+            <!-- /Checkbox Hack markup -->
+            <%- include ("../partials/nav.ejs") %> 
+      
+      </section>
+    </div>
+    <%- include ("../partials/header-html.ejs") %>
+    <div id="container-content">
+      <article id="content">
+      
+      <!-- Classes removed / #portfolio -->
+      <!-- Element(s)/Classes added from Bootstrap's Scaffolding -->
+
+        <section id="portfolio" class="container-fluid">
+
+
+
+                    <div class="row">
+
+                        <article class="col-md-6">
+
+    <div id="spinner" class="spinner" style="display:none;">
+      <img id="img-spinner" src="/img/app/wait.gif" alt="Loading">
+    </div>
+<style>
+#debugging_output {
+    display: none;
+    color: blue;
+    font-weight: bold;
+    /*background-color: aqua;*/
+    /*white-space: pre;*/
+    font-size:150%;
+    font-family: monospace;
+    margin: 6px 6px 6px 6px;
+    padding: 10px 12px 10px 12px;
+    border-style: solid;
+    border-width: thin;
+    border-color: black;
+}
+
+div#debug {
+    display: none;
+    position: absolute;
+    bottom: 10px;
+    right: 0px;
+    height: 20px;
+    width: 250px;
+    color: #2C6483;
+    /*background-color: #cf8;*/
+}
+    div#debug a:link {color: white;}
+    div#debug a:visited {color: #2C6483;}
+    div#debug a:hover {color: blue;}
+
+</style>
+<link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Parisienne' rel='stylesheet' type='text/css'>
+<h3 style="margin-left:188px;margin-bottom:6px;font-weight: bold;">Numbers to Words to Cursive Converter</h3>
+
+<p style="font-size:120%"><em>Fastest and most accurate Numbers to Words converter on the web!</em>*</p>
+                <!--------------------- start calculator div ------------------------------------->
+<form id='myform'>
+
+ Enter amount in numbers: <input id="first_input" type="text" name="number" size="25" maxlength="90" value="">
+                              <ul style="list-style-type: none; width: 200px; padding-left: 53px; padding-right: 25px; margin-left: 144px; background-color: lightgray">
+                                <li>
+                                  <label>
+                                    <input type="radio" name="format" value="check" checked="checked">
+                                    Check Writer</label>
+                                </li>
+                                <li><label>
+                                    <input type="radio" name="format" value="currency" />
+                                    Money Visualizer</label>
+                                </li>
+                                <li>
+                                  <label>
+                                    <input type="radio" name="format" value="words"  />
+                                    Just Words</label>
+                                </li>
+                              </ul>
+                   <div id="debugging_output">
+                        <div>
+                          <strong>Left String: </strong>
+                                                        <span id="LeftOfPeriod"></span> is <span id="LeftLen"></span> characters
+                        </div>
+                        <div>
+                          <strong>Ones Position: </strong>
+                                                        <span id="OnesPos"></span>--><span id="OnesPlace"></span>
+                        </div>
+                        <div>
+                          <strong>Tens Position: </strong>
+                                                        <span id="TensPos"></span>--><span id="TensPlace"></span>
+                        </div>
+                        <div>
+                          <strong>Hundreds Position: </strong>
+                                                        <span id="HundredsPos"></span>--><span id="HundredsPlace"></span>
+                        </div>
+                 </div>
+                        <div>
+                          <h4>Words:</h4>
+                                                        <span id="finalAnswer" style="font-size:120%"></span>
+                        </div>
+<div id="check_div" style="position: relative;width:700px;height:318px;background-image: url(/img/app/Check-Writer/BACKGROUND_check.jpg)">
+
+
+<div id="amountDiv" style="font-size:202%;position:absolute;top: 111px;left:560px;font-family: 'Indie Flower', cursive;"></div>
+<div id="cursiveDiv" style="font-size:150%;position:absolute;top: 146px;left:40px"><span id="cursive" style="font-family: 'Parisienne', cursive;font-weight: bold;"></span><!--span id="hand" style="font-family: 'Indie Flower', cursive;"></span--></div>
+
+</div>
+<h4 id="Visualizer_Label">Visualizer</h4>
+<div id="Visualizer_Div">
+
+</div>
+                   
+                      <input id="reset" type='button' value="Reset" style="margin-top: 10px;"> 
+
+    <div id="debug"><a href="#">Show Debugging Info</a></div>
+</form>
+
+<p>&nbsp;</p><p>&nbsp;</p>
+<p>* Compared to the results produced by the number to word converters found on CalculatorSoup.com and About.com.
+<br>
+<strong>Accuracy examples</strong>
+</p>
+<style>
+.customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.customers td, #customers th {
+    font-size: 1em;
+    border: 1px solid #2C6483;
+    padding: 3px 7px 2px 7px;
+}
+
+.customers th {
+    font-size: 1.1em;
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 4px;
+    background-color: #2C6483;
+    color: #ffffff;
+}
+
+.customers tr.alt td {
+    color: #000000;
+    background-color: #EAF2D3;
+}
+
+</style>
+<span class="customers">
+<table>
+<tr><th>Input</th><th>Calculator Soup's results</th><th><small>About.com's Write Out Numbers</small></th><th>SteveBreese.com's result</th></tr>
+<tr><td>67.996</td><td class="red">sixty-seven and 100/100 dollars</td><td class="red">sixty seven point nine nine six</td><td class="green">sixty-eight and 00/100</td></tr>
+</table>
+</span>
+
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script>
+///////////////////////////////
+///  BEGIN Spinner
+///  https://blog.oio.de/2010/11/08/how-to-create-a-loading-animation-spinner-using-jquery/
+$(document).ready(function() {
+    $("#spinner").bind("ajaxSend", function() {
+        $(this).show();
+    }).bind("ajaxStop", function() {
+        $(this).hide();
+    }).bind("ajaxError", function() {
+        $(this).hide();
+    });
+
+});
+
+///  END Spinner
+////////////////////////////////
+// On-screen debugger
+$("#debug a").click(function(e) {
+    e.preventDefault();
+    $("#debugging_output").toggle("slow", function() {
+        // Animation complete.
+    });
+    if ($("#debug a").html() == "<!--Show Debugging Info-->")
+        $("#debug a").html("<!--Hide Debugging Info-->");
+    else
+        $("#debug a").html("<!--Show Debugging Info-->");
+});
+$(function() {
+    $('#reset').click(function() {
+        $(':input','#myform')
+            .not(':button, :reset, :hidden')
+            .val('');
+            //.removeAttr('checked')
+            //.removeAttr('selected');
+
+        $("#finalAnswer").html("");
+ConvertMe();
+    });
+});
+
+$.fn.digits = function(){ 
+    return this.each(function(){ 
+        $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") ); 
+    })
+}
+////////////////////////////////////////////////////////////////
+////   BEGIN Declare variables that don't need initializing
+var ReqFormat,RawInput,numbersDecimalString,RoundedForCurrencyAndCheck,leftOfPeriod,OnesPlace,TensPlace,HundredsPlace,OnesWords = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"],TeensWords=["ten","eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"],TensWords = ["", "teen", "twenty", "thirty", "fourty", "fifty", "sixty", "seventy", "eighty", "ninety"],HundredsWords = ["", "one hundred", "two hundred", "three hundred", "four hundred", "five hundred", "six hundred", "seven hundred", "eight hundred", "nine hundred"];
+
+var fraction,TenthsPlace,HundredthsPlace,HundredthsRounded,rightOfPeriod,cents,j;
+
+var BigNumbers = new Array("","thousand","million","billion","trillion","quadrillion","quintillion","sextillion","septillion","octillion","nonillion","decillion","undecillion","duodecillion","tredecillion","quattuordecillion","quindecillion","sexdecillion","septendecillion","octodecillion","novemdecillion","vigintillion","unvigintillion","dovigintillion","trevigintillion","quattuorvigintillion","quinvigintillion","sexvigintillion","septenvigintillion","octovigintillion","novemvigintillion","trigintillion","untrigintillion","dotrigintillion","tretrigintillion","quattuortrigintillion","quintrigintillion","sextrigintillion","septentrigintillion","octotrigintillion","novemtrigintillion");
+
+var DecimalUnits = new Array("tenths","hundredths","thousandths","ten-thousandths","hundred-thousandths","millionths","ten-millionths","hundred-millionths","billionths","ten-billionths","hundred-billionths","trillionths","ten-trillionths","hundred-trillionths","quadrillionths","ten-quadrillionths","hundred-quadrillionths","quintillionths","ten-quintillionths","hundred-quintillionths","sextillionths","ten-sextillionths","hundred-sextillionths","septillionths","ten-septillionths","hundred-septillionths","octillionths","ten-octillionths","hundred-octillionths","nonillionths","ten-nonillionths","hundred-nonillionths","decillionths","ten-decillionths","hundred-decillionths","undecillionths","ten-undecillionths","hundred-undecillionths","duodecillionths","ten-duodecillionths","hundred-duodecillionths","tredecillionths","ten-tredecillionths","hundred-tredecillionths","quattuordecillionths","ten-quattuordecillionths","hundred-quattuordecillionths","quindecillionths","ten-quindecillionths","hundred-quindecillionths","sexdecillionths","ten-sexdecillionths","hundred-sexdecillionths","septendecillionths","ten-septendecillionths");
+
+var CurrencyDenominations  = [ {number: "5000000000000000", name: "value of Earth = $5 quadrillion", image: "GRAPHIC_earth_pricetag"}, {number:30000000000000, name: "gross world product = $30 trillion", image: "GRAPHIC_Gross_World_Product"}, {number: 6949748531085, name:"value of all the gold in the world = $6.9 trillion", image: "GRAPHIC_all_the_gold_in_the_world"}, {number: 870000000000, name: "Smaug's treasure hoard = $870 billion", image: "GRAPHIC_Smaugs_treasure_hoard"}, {number: 130000000000, name: "all the gold in Ft. Knox: 147.3 million troy ounces of gold = $130 billion", image: "GRAPHIC_Fort_Knox_Gold"}, {number: 79300000000 , name: "net worth of Bill Gates = $79.3 billion", image: "GRAPHIC_Bill_Gates_net_worth"}, {number: 3486331600, name: "100 tons of gold = $3.5 billion", image: "GRAPHIC_100_tons_of_gold"}, {number: 35515200, name: "1-ton of gold = $36 million", image: "GRAPHIC_1-Ton_Gold"}, { number: 1000000, name: "$1 million", image: "GRAPHIC_1_million_dollars" }, { number: 10000, name: "$10,000", image: "GRAPHIC_10000_dollar_bill" }, { number: 100, name: "$100", image: "GRAPHIC_100_dollar_bill" }, { number: 50, name: "$50", image: "GRAPHIC_50_dollar_bill" }, { number: 20, name: "$20", image: "GRAPHIC_20_dollar_bill" }, { number: 10, name: "$10", image: "GRAPHIC_10_dollar_bill" }, { number: 5, name: "$5", image: "GRAPHIC_5_dollar_bill" }, { number: 1, name: "Dollar", image: "GRAPHIC_1_dollar_bill" }, { number: .25, name: "Quarter", image: "GRAPHIC_Quarter"}, { number: .10, name: "Dime", image: "GRAPHIC_Dime", shrink: 50 }, { number: .05, name: "Nickel", image: "GRAPHIC_Nickel", shrink: 50 }, { number: .01, name: "Penny", image: "GRAPHIC_Penny", shrink: 50 } ];
+
+$("#first_input").on('keyup paste' ,function(){
+ConvertMe();
+});
+$("input:radio[name=format]").on('click' ,function(){
+ConvertMe();
+});
+
+//////////////////////////////////////////////////////////
+////  http://stackoverflow.com/questions/10073699/pad-a-number-with-leading-zeros-in-javascript
+function pad(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
+//// pad(10, 4);      // 0010
+//// pad(9, 4);       // 0009
+//// pad(123, 4);     // 0123
+//// pad(10, 4, '-'); // --10
+////   END pad()
+///////////////////////////////////////////////////////////
+function ConvertMe() {
+//////////////////////////////////////////
+////  BEGIN Initialize certain variables:
+var multipleLeft=1,leftOfPeriod="",paddedCents="",multipleRight=1,InProcessWords="",FractionCalc="",FractionWords="",LeftBigNumberIndex=0,RightBigNumberIndex=0,And="",leftRight="right";
+$("#Visualizer_Div").html("");
+////   END  Declare variables
+///////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////
+////  BEGIN Used in both Whole Numbers and Decimals
+RawInput = $("#first_input").val();
+numbersDecimalString = RawInput.replace(/[^0-9.]/g, "");
+if (numbersDecimalString.indexOf(".") == -1) {
+numbersDecimalString = numbersDecimalString + ".";
+}
+RoundedForCurrencyAndCheck = (Math.round(numbersDecimalString * 100) / 100).toString();
+if (RoundedForCurrencyAndCheck.indexOf(".") == -1) {
+RoundedForCurrencyAndCheck = RoundedForCurrencyAndCheck + ".";
+}
+$("#LeftOfPeriod").html(RoundedForCurrencyAndCheck);
+//noCommas = RawInput.replace(/,/g, ''); <-- remove just comma (not very useful)
+////  END Used in both Whole Numbers and Decimals
+///////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////
+////  BEGIN Whole numbers:
+if (RawInput) {
+if(!Number(numbersDecimalString)) {
+InProcessWords = "zero";
+}
+else
+{
+
+switch($('input[name=format]:checked').val()) {
+    case "words":
+leftOfPeriod = numbersDecimalString.substr(0, numbersDecimalString.indexOf('.'));
+    break;
+    default:
+leftOfPeriod = RoundedForCurrencyAndCheck.substr(0, RoundedForCurrencyAndCheck.indexOf('.'));
+}
+}
+
+//alert(leftOfPeriod);
+while (leftOfPeriod >= multipleLeft) {
+
+LeftLen = leftOfPeriod.length;
+$("#LeftLen").html(LeftLen);
+    j = multipleLeft.toString().length;
+    OnesPos = LeftLen - j;
+$("#OnesPos").html(OnesPos);
+    OnesPlace     = leftOfPeriod[OnesPos];
+$("#OnesPlace").html(OnesPlace);
+    TensPos = LeftLen - j - 1;
+$("#TensPos").html(TensPos);
+    TensPlace     = leftOfPeriod[TensPos];
+$("#TensPlace").html(TensPlace);
+    HundredsPos = LeftLen - j - 2;
+$("#HundredsPos").html(HundredsPos);
+    HundredsPlace = leftOfPeriod[HundredsPos];
+$("#HundredsPlace").html(HundredsPlace);
+
+    InProcessWords = (HundredsPlace?HundredsWords[HundredsPlace] + " ":"") + (TensPlace == 1?TeensWords[OnesPlace]:(typeof TensPlace != 'undefined'?TensWords[TensPlace] + (TensWords[TensPlace] && OnesWords[OnesPlace]?"-":""):"") + OnesWords[OnesPlace]) + ((HundredsPlace?+HundredsPlace:"") + (TensPlace?+TensPlace:"") + +OnesPlace && BigNumbers[LeftBigNumberIndex]?" " + BigNumbers[LeftBigNumberIndex] + ", ":"") + InProcessWords;
+
+    LeftBigNumberIndex++;
+    multipleLeft = multipleLeft * 1000;
+} // END while
+
+if ($('input[name=format]:checked').val() == "currency")
+{
+InProcessWords = InProcessWords + " dollar" + (leftOfPeriod > 1?"s":"");
+}
+} // END not a 0
+////  END whole numbers
+///////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////
+////  BEGIN Fractions:
+if (RawInput)
+{
+fraction = RoundedForCurrencyAndCheck.substr(RoundedForCurrencyAndCheck.indexOf('.'));
+cents = (fraction=='.'?0:fraction) * 100;
+paddedCents = pad(cents,2);
+        rightOfPeriod = numbersDecimalString.substr(numbersDecimalString.indexOf('.')+1);
+
+switch($('input[name=format]:checked').val()) {
+    case "check":
+        And = (leftOfPeriod > 0 || InProcessWords=="zero"?" and ":"");
+        FractionCalc = paddedCents + "/100";
+        $("#Visualizer_Label").hide();
+        $("#Visualizer_Div").hide();
+        $("#check_div").show();
+        break;
+    case "currency":
+        if (cents) {
+        HundredthsPlace = paddedCents[1];
+            TenthsPlace = paddedCents[0];
+        TenthsHundredthsCalcWords = (TenthsPlace == 1?TeensWords[HundredthsPlace]:TensWords[TenthsPlace] + " " + OnesWords[HundredthsPlace]);
+        And = " and ";
+        FractionWords = TenthsHundredthsCalcWords + " cent" + (cents > 1?"s":"");
+        }
+        FractionCalc = FractionWords;
+        $("#check_div").hide();
+        $("#Visualizer_Div").show();
+        $("#Visualizer_Label").show();
+        break;
+    case "words":
+        $("#check_div").hide();
+        $("#Visualizer_Div").hide();
+        $("#Visualizer_Label").hide();
+RightLen = rightOfPeriod.toString().length;
+if (rightOfPeriod) {
+while (rightOfPeriod >= multipleRight) {
+    j = multipleRight.toString().length;
+    OnesPos = RightLen - j;
+    OnesPlace     = rightOfPeriod[OnesPos];
+    TensPos = RightLen - j - 1;
+    TensPlace     = rightOfPeriod[TensPos];
+    HundredsPos = RightLen - j - 2;
+    HundredsPlace = rightOfPeriod[HundredsPos];
+
+    FractionCalc = (HundredsPlace?HundredsWords[HundredsPlace] + " ":"") + (TensPlace == 1?TeensWords[OnesPlace]:(typeof TensPlace != 'undefined'?TensWords[TensPlace] + (TensWords[TensPlace] && OnesWords[OnesPlace]?"-":""):"") + OnesWords[OnesPlace]) + ((HundredsPlace?+HundredsPlace:"") + (TensPlace?+TensPlace:"") + +OnesPlace && BigNumbers[RightBigNumberIndex]?" " + BigNumbers[RightBigNumberIndex] + ", ":"") + FractionCalc;
+
+    RightBigNumberIndex++;
+    multipleRight = multipleRight * 1000;
+} // END while
+And = " and ";
+FractionCalc = FractionCalc + " " + DecimalUnits[RightLen-1];
+} // END IF
+        
+} // END switch
+}
+////   END Fractions
+////////////////////////////////////////////////////////
+String.prototype.capitalizeFirstLetter = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+if (leftOfPeriod >= 100000) {
+$("#cursiveDiv").css({"left":"20px"});
+}
+else {
+$("#cursiveDiv").css({"left":"40px"});
+}
+
+$("#finalAnswer").html(InProcessWords + And + FractionCalc + (InProcessWords && paddedCents=="00" && $('input[name=format]:checked').val() == "check"?"<br><b>or simply</b><br>"+InProcessWords:""));
+$("#cursive").html(InProcessWords.capitalizeFirstLetter() + And + FractionCalc);
+$("#amountDiv").html(leftOfPeriod + (RawInput?".":"") + paddedCents);
+$("#amountDiv").digits();
+
+if ($('input[name=format]:checked').val() == "currency") {
+var InProcess = RoundedForCurrencyAndCheck;
+console.log("You start with ", InProcess);
+if (leftOfPeriod > 15000000000000000) {
+
+$("#Visualizer_Div").html("<h3>Will you hire me to do your web development?</h3>");
+}
+else {
+///////////////////////////////////////////////////
+////   BEGIN Currency Graphics Loop
+for (var key in CurrencyDenominations){
+    var Denomination = CurrencyDenominations[key];
+    
+QtyOfThisDenomination = Math.floor(InProcess / Denomination.number);
+InProcess = Math.round((InProcess - QtyOfThisDenomination * Denomination.number) * 100)/100;
+
+if (QtyOfThisDenomination) {
+console.log("Is " + Denomination.number + " less than $1?");
+
+console.log("There are " + QtyOfThisDenomination + " " + Denomination.name + "'s which will be set with " + leftRight);
+console.log("Now you got " + InProcess);
+  for(var i=0; i<QtyOfThisDenomination; i++){
+leftRight = (Denomination.number < .25 && leftRight == "left"?"right":"left");
+    $("#Visualizer_Div").append("<img src='img/app/Check-Writer/money/"+ Denomination.image +".png' style='float: "+ leftRight +";' title=\""+ Denomination.name +"\">");
+  }
+}
+}
+$("#Visualizer_Div").append("<div style='clear:both'></div>");
+////    END Currency Graphics Loop
+///////////////////////////////////////////////////
+}
+
+}
+
+} 
+//// END ConvertMe()
+////////////////////////////////////////////////////////
+
+        $("#debug").show();
+        $("#debug a").html("<!--Show Intermediate Results-->");
+</script>
+        <!-------------------- end calculator div --------------------------->
+
+                        </article>
+                        
+                        </div>
+                        
+ 
+    
+                   
+                
+                    </div>
+                    
+                </section>
+    
+      </article>
+    </div>
+   <%- include ("../partials/footer.ejs") %>
+  </body>
+</html>

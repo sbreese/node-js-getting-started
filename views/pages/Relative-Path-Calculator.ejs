@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+
+    <%- include ("../partials/header.ejs") %>
+
+  </head>
+
+  <body lang="en">
+    <div id="container-nav">
+      <section id="nav" class="group wrapper">
+        <h3><a href="/" style="padding: 0">Steve Breese</a></h3>
+            <!-- Checkbox Hack markup -->
+            <input type="checkbox" id="toggle" />
+            <label for="toggle" onclick>Menu</label>
+            <!-- /Checkbox Hack markup -->
+            <%- include ("../partials/nav.ejs") %> 
+      
+      </section>
+    </div>
+    <%- include ("../partials/header-html.ejs") %>
+    <div id="container-content">
+      <article id="content">
+      
+      <!-- Classes removed / #portfolio -->
+      <!-- Element(s)/Classes added from Bootstrap's Scaffolding -->
+
+        <section id="portfolio" class="container-fluid">
+
+                    <header>
+                        <h3>Relative Path Calculator</h3>
+                        <p></p>
+                    </header>
+
+                    <div class="row">
+
+                        <article class="col-md-6">
+
+<!-- ///////////////////////// BEGIN CONTENT ///////////////////////////// -->
+
+
+<style>
+span.clear {
+	background-color: #FFEBCD;
+	display: block;
+
+}
+div.inlineThis {
+	display: inline-block
+}
+.hide-invalid {
+    /*height: 100px;*/
+}
+.Example {
+    margin-top:50px;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+
+<p>Instructions:<ol><li>Enter Two Absolute Paths (Relative paths may be used instead as as long as they share the same root directory)<li>The calculator will automatically calculate and display the relative path for both directions</ol></p>
+Path #1: <input type="text" size="90" onfocus="this.value='';resetResults()" id="firstpath" value="">
+<br>
+Path #2: <input type="text" size="90" onfocus="this.value='';resetResults()" id="secondpath" value="">
+
+<section class="hide-invalid">
+	<h2>Results:</h2>
+<div id="option_1" class="inlineThis">To add a reference to File #2 within File #1, use this relative path:<br><span id="result_1" class="clear"></span><button class="copy" type="button">Copy to Clipboard</button></div>
+<div id="option_2" class="inlineThis">To add a reference to File #1 within File #2, use this relative path:<br><span id="result_2" class="clear"></span><button class="copy" type="button">Copy to Clipboard</button>
+	</div>
+</section>
+<div class="Example">
+<h3>Sample Absolute Path Data</h3>
+		<h4>Mac &amp; Linux Path</h4>
+<textarea rows="2" cols="160">
+/Users/steve/wordpress2/wp-content/plugins/code-generator/download.php
+/Users/steve/wordpress2/wp-config.php
+/Users/steve/wp-content/plugins/code-generator/download.php
+/Users/steve/wordpress2/plugins/wp-config.php</textarea>
+<button class="populate" type="button">Populate Data in Calculator</button>
+
+
+	<h4 style='margin-top: 2rem;'>Windows Path</h4>
+<textarea rows="2" cols="160">
+C:\Projects\GitHub\ShellTools\Build
+C:\Projects\GitHub\ShellTools\Source\ShellTools\ShellTools.csproj</textarea>
+<button class="populate" type="button">Populate Data in Calculator</button>
+</div>
+
+
+<script>
+function resetResults() {
+	$(".clear").val('');
+	$(".hide-invalid").css('visibility','hidden');
+}
+
+  function copyToClipboard(text) {
+    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+  }
+
+function calc_Relative_Path (firstArray,secondArray,splitBy,outputSpan) {
+	var nonMatch;
+	$("#result_"+outputSpan).html('');
+	var upLevelCt = 0, ThereWasAChange = false;
+    $.each(firstArray, function( index, value ) {
+		nonMatch = index;
+
+		if (secondArray[index] && value == secondArray[index]  && !ThereWasAChange) {
+			return; // continue;
+		}
+		else if (secondArray[index] && value != secondArray[index] || (ThereWasAChange && secondArray[index])) {
+		    ThereWasAChange = true;
+
+		    if (secondArray.length-1!=index && firstArray.length-1!=index) {
+		        $("#result_"+outputSpan).prepend('<strong style="color:red">..'+splitBy+'</strong>');
+		        upLevelCt++;
+		    }
+		    if (firstArray[index + 1]) { // Include the intermediate differences
+                $("#result_"+outputSpan).append('<strong style="color:green">'+secondArray[index]+'</strong>'+(secondArray.length-1!=index?'<strong style="color:purple">'+splitBy+'</strong>':''));
+            }
+        }
+		else if ((secondArray[index] && value != secondArray[index]) || !(index in secondArray)) {
+			$("#result_"+outputSpan).prepend('<strong style="color:red">..'+splitBy+'</strong>');
+			upLevelCt++;
+		}
+		else {
+		    alert("Yippee!!!  DELETE THIS SECTION IF THIS ALERT NEVER SHOWS!")
+			$("#result_"+outputSpan).prepend('<strong style="color:red">..'+splitBy+'</strong>');
+			upLevelCt++;   //return false; // break;
+		}
+	});
+
+	if ($("#result_"+outputSpan).html().replace('<strong style="color:red">','').charAt(0) != '.') { //== "/sub/1"
+		var firstpath = $("#firstpath").val();
+		if (firstpath.indexOf("/") > -1) {
+			$("#result_" + outputSpan).prepend('./'); // $("#result_"+outputSpan).html().replace('..','.')
+		} else {
+			$("#result_" + outputSpan).prepend('.\\');
+		}
+	}
+	var secondArrayKeep = secondArray.slice(nonMatch);
+	if (secondArrayKeep.length) {
+	    $("#result_"+outputSpan).append('<strong style="color:blue">'+secondArrayKeep.join(splitBy)+'</strong>');
+	}
+	$(".hide-invalid").css('visibility','visible');
+}
+$(document).ready(function(){
+
+	$(".hide-invalid").css('visibility','hidden');
+
+    $("input").bind("change keyup input", function(){
+    	if ($("#firstpath").val() && $("#secondpath").val()) {
+	    	resetResults();
+
+	        var firstpath = $("#firstpath").val();
+	        var secondpath = $("#secondpath").val();
+
+			if (firstpath.indexOf("/") > -1) {
+		        var firstArray = firstpath.split(/\/(.+)?/)[1].replace(/^\/|\/$/g, '').split('/');
+		        var secondArray = secondpath.split(/\/(.+)?/)[1].replace(/^\/|\/$/g, '').split('/');
+
+		        var splitBy =  '/';
+		    } else {
+		        var firstArray = firstpath.split(/\\(.+)?/)[1].replace(/^\\|\\$/g, '').split('\\');
+		        var secondArray = secondpath.split(/\\(.+)?/)[1].replace(/^\\|\\$/g, '').split('\\');
+		        var splitBy =  '\\';
+		    }
+		        //var firstArray = firstpath.replace(/^\/|\/$/g, '').split('/');
+		        //var secondArray = secondpath.replace(/^\/|\/$/g, '').split('/');
+		 		calc_Relative_Path (firstArray,secondArray,splitBy,1);
+		 		calc_Relative_Path (secondArray,firstArray,splitBy,2);
+		 		//$("#option_1,#option_2").show();
+		 		var widest = 0;
+				$("div.inlineThis").each(function () {widest = Math.max(widest, $(this).outerWidth());}).width(widest);
+
+ 		}
+    });
+
+      $("button.populate").click( function()
+           {
+              	var textarea = $(this).prev().val().split('\n');
+      			$("#firstpath").val(textarea[0]);
+      			$("#secondpath").val(textarea[1]);
+      			if (textarea[2]) {
+      			    $(this).prev().val(textarea[2]+'\n'+textarea[3]);
+      			}
+      			$("#firstpath").trigger('change');
+           }
+      );
+      $(".copy").click( function()
+           {
+      			copyToClipboard($(this).prev().text());
+           }
+      );
+
+});
+</script>
+
+<!-- /////////////////////////  END CONTENT ////////////////////////////// -->
+                        </article>
+                        
+                        </div>
+                
+                    </div>
+                    
+                </section>
+    
+      </article>
+    </div>
+   <%- include ("../partials/footer.ejs") %>
+  </body>
+</html>
