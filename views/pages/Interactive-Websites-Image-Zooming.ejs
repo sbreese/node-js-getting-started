@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 9]><html class="ie"><![endif]-->
+<!--[if !IE]><!--><html><!--<![endif]-->
+  <head>
+
+    <%- include ("../partials/header.ejs") %>
+
+  </head>
+
+  <body lang="en">
+    <div id="container-nav">
+      <section id="nav" class="group wrapper">
+        <h3><a href="/" style="padding: 0">Steve Breese</a></h3>
+            <!-- Checkbox Hack markup -->
+            <input type="checkbox" id="toggle" />
+            <label for="toggle" onclick>Menu</label>
+            <!-- /Checkbox Hack markup -->
+            <%- include ("../partials/nav.ejs") %> 
+      
+      </section>
+    </div>
+    <%- include ("../partials/header-html.ejs") %>
+    <div id="container-content">
+      <article id="content">
+      
+      <!-- Classes removed / #portfolio -->
+      <!-- Element(s)/Classes added from Bootstrap's Scaffolding -->
+      
+        <section id="portfolio" class="container-fluid">
+        
+                    <header>
+                        <h3>Image Zooming with Adobe Dynamic Media</h3>
+                        <p>Do you want to provide your users the ability to get a closer up view of images on your website?  One solution could be Adobe's Dynamic Media.  Sure you have to subscribe to Adobe Experience Manager to make use of it, but for companies that do, they are allotted a full range of options for interactive display of their media in ways that result in fast sales.</p>
+                            
+                        <p>Below I highlight two Dymanic Media viewers, both of which allow users to easily zoom in to larger version of the main image so they can fully inspect the product without needing to download the full-size iamge to their hard drive or to a separate browser tab.</p>
+                    </header>
+                    
+                    <div class="row">
+                    
+                        <article class="col-md-6">
+
+
+                        
+                            <section class="live-demos">
+                            
+                                <div class="live-demos-wrapper">
+                                    <div class="wrapper">
+                                        <h5>Inline Zoom</h5>
+                                        <div id="s7flyout_div"></div>
+                            
+                                        <h5>Image Set / Swatch Set</h5>
+                                        <div id="s7zoom_div"></div>
+                                    </div>
+                                </div>
+                            
+                            </section>
+                            
+<script src="https://demos-pub.assetsadobe.com/etc/dam/viewers/s7viewers/html5/js/ZoomViewer.js"></script>
+<script src="https://demos-pub.assetsadobe.com/etc/dam/viewers/s7viewers/html5/js/FlyoutViewer.js"></script>
+<script>
+window.adobeViewers = {}
+
+window.adobeViewers["s7zoomviewer"] = new s7viewers.ZoomViewer({
+    "containerId" : "s7zoom_div",
+    "params" : {
+        "serverurl" : "https://adobedemo62-h.assetsadobe.com/is/image",
+        "contenturl" : "https://demos-pub.assetsadobe.com/",
+        "config" : "/etc/dam/presets/viewer/ImageSet_light",
+        "asset" : "/content/dam/dm-public-facing-live-demo-page/09_09_living-room_image_set_swatch_set/09_living_room_imagesetswatchset" }
+}).init();
+
+window.adobeViewers["s7flyoutviewer1"] = new s7viewers.FlyoutViewer({
+    "containerId" : "s7flyout_div",
+    "params" : {
+        "serverurl" : "https://adobedemo62-h.assetsadobe.com/is/image",
+        "contenturl" : "https://demos-pub.assetsadobe.com/",
+        "config" : "/etc/dam/presets/viewer/InlineZoom",
+        "asset" : "/content/dam/dm-public-facing-live-demo-page/08_mug_inline_zoom/mug_inline_zoom" }
+}).init();
+</script>
+
+<h3>See the code!</h3>
+<ul>
+<li>Step 1: Add references to the Adobe Assets code for the JavaScript for the viewers you want to implement.
+<pre class="prettyprint lang-js">
+    &lt;script src="js/ZoomViewer.js"&gt;&lt;/script&gt;
+    &lt;script src="js/FlyoutViewer.js"&gt;&lt;/script&gt;
+</pre>
+
+</li>
+<li>Step 2: Configure the viewer settings initialize them.
+
+<pre class="prettyprint lang-js">
+window.adobeViewers = {}
+
+window.adobeViewers["s7zoomviewer"] = new s7viewers.ZoomViewer({
+    "containerId" : "s7zoom_div",
+    "params" : {
+        "serverurl" : "https://adobedemo62-h.assetsadobe.com/is/image",
+        "contenturl" : "https://demos-pub.assetsadobe.com/",
+        "config" : "/etc/dam/presets/viewer/ImageSet_light",
+        "asset" : "/content/dam/dm-public-facing-live-demo-page/09_09_living-room_image_set_swatch_set/09_living_room_imagesetswatchset" }
+}).init();
+
+window.adobeViewers["s7flyoutviewer1"] = new s7viewers.FlyoutViewer({
+    "containerId" : "s7flyout_div",
+    "params" : {
+        "serverurl" : "https://adobedemo62-h.assetsadobe.com/is/image",
+        "contenturl" : "https://demos-pub.assetsadobe.com/",
+        "config" : "/etc/dam/presets/viewer/InlineZoom",
+        "asset" : "/content/dam/dm-public-facing-live-demo-page/08_mug_inline_zoom/mug_inline_zoom" }
+}).init();
+</pre>
+</li>
+
+</ul>
+
+                        </article>
+                        
+                        </div>
+                
+                    </div>
+                    
+                </section>
+    
+      </article>
+    </div>
+    <div id="container-footer">
+      <form id="contact">
+          <fieldset class="wrapper">
+              <legend>Contact</legend>
+                  <!--ul class="group">
+                      <li class="name">
+                          <label for="name">Your Name</label>
+                          <input type="text" id="name" name="name" />
+                      </li>
+                      <li class="email">
+                          <label for="email">Your Email</label>
+                          <input type="email" id="email" name="email" />
+                      </li>
+                      <li class="message">
+                          <label for="message">Say Hello</label>
+                          <textarea id="message" name="message"></textarea>
+                      </li>
+                  </ul-->
+                  <span style='font-size:150%'>sbreese@gmail.com</span>
+              <!--<input class="send" type="submit" name="submit" value="Send" />-->
+          </fieldset>
+      </form>           
+    <%- include ("../partials/footer.ejs") %>
+    </div>  
+  </body>
+</html>
