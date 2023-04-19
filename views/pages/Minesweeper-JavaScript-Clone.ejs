@@ -1,0 +1,679 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+
+  <%- include ("../partials/header.ejs") %>
+  <link rel="stylesheet" href="./stylesheets/minesweeper.css">
+</head>
+
+<body lang="en">
+  <div id="container-nav">
+    <section id="nav" class="group wrapper">
+      <h3><a href="/" style="padding: 0">Steve Breese</a></h3>
+      <!-- Checkbox Hack markup -->
+      <input type="checkbox" id="toggle" />
+      <label for="toggle" onclick>Menu</label>
+      <!-- /Checkbox Hack markup -->
+      <%- include ("../partials/nav.ejs") %>
+
+    </section>
+  </div>
+  <%- include ("../partials/header-html.ejs") %>
+  <div id="container-content">
+    <article id="content">
+
+      <!-- Classes removed / #portfolio -->
+      <!-- Element(s)/Classes added from Bootstrap's Scaffolding -->
+
+      <section id="portfolio" class="container-fluid">
+
+        <header>
+          <h2>Minesweeper JavaScript Clone</h2>
+          <h4>By Steve Breese</h4>
+          <p></p>
+        </header>
+
+        <div class="row" style="">
+
+          <article class="col-md-6 minesweeper-article">
+
+            <!-- ///////////////////////// BEGIN CONTENT ///////////////////////////// -->
+            <div class='mine-wrapper'>
+              <div class="header"><span id="mine-count" class="digital-clock-font" style="float: left"></span>
+                <div id="mr-smiley" class="btn"></div><span id="timer" class="digital-clock-font"
+                  style="float: right"></span>
+              </div>
+              <div class="inner">
+                <div class="board"></div>
+
+                <div class="endscreen"><span id='close-modal' onclick='closeModal()'>x</span></div>
+
+                <!-- need to style the settings first -->
+
+                <!-- <div class="settings">
+						<label for="boardSize">board size</label>
+						<input id="boardSize" type="range" min="0" max="20">
+						
+						<label for="tileSize">tile size</label>
+						<input id="tileSize" type="range" min="10" max="100" step="10">
+						 -->
+                <fieldset id="game-ctrl">
+                </fieldset>
+              </div>
+            </div>
+
+            <div id="bestScoresDiv">
+              <h3>Best Scores</h3>
+
+            </div>
+
+            <audio data-key="UhOh" src="./sounds/UhOh.wav"></audio>
+            <audio data-key="explode" src="./sounds/MineExplosion.mp3"></audio>
+            <audio data-key="homer" src="./sounds/Homer_woo_hoo.wav"></audio>
+            <audio data-key="record" src="./sounds/super_mario_bros_world_clear.wav"></audio>
+            <audio data-key="freeguy" src="./sounds/super_mario_bros_1-up.wav"></audio>
+            <audio data-key="beginner" src="./sounds/super_mario_bros_powerdown.wav"></audio>
+            <audio data-key="intermediate" src="./sounds/super_mario_bros_powerup_appears.wav"></audio>
+            <audio data-key="expert" src="./sounds/super_mario_bros_powerup.wav"></audio>
+            <audio data-key="hurry_up" src="./sounds/super_mario_bros_hurry_up.wav"></audio>
+
+            <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+            <script>
+              // http://datagenetics.com/blog/june12012/index.html
+              String.prototype.capitalize = function () {
+                return this.charAt(0).toUpperCase() + this.slice(1);
+              }
+              const read_cookie = (name) => {
+                var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
+                result && (result = JSON.parse(result[1]));
+                return result;
+              }
+              const findElement = (arr, propName, propValue) => {
+                for (var i = 0; i < arr.length; i++)
+                  if (arr[i][propName] == propValue)
+                    return arr[i];
+
+                // will return undefined if not found; you could return a default instead
+              };
+
+              $("#mine-count").html("000");
+              console.clear();
+
+              let difficultyArray = [{name: 'beginner', mineCt: 10, sizeX: 9, sizeY: 9}, {name: 'intermediate', mineCt: 40, sizeX: 16, sizeY: 16}, {name: 'expert', mineCt: 99, sizeX: 30, sizeY: 16}];
+
+              let currentDifficultyLevel = read_cookie('minesweeper_difficulty_level') ? read_cookie('minesweeper_difficulty_level') : 'expert';
+              let currentLevelObject = findElement(difficultyArray, "name", currentDifficultyLevel);
+              let sizeX = currentLevelObject.sizeX; // count of x tiles
+              let sizeY = currentLevelObject.sizeY; // count of y tiles
+              let mineTotalCount = currentLevelObject.mineCt;
+              let tileSize = 25;
+              let counter = 0;
+
+              difficultyArray.forEach((difficultyLevel, indexDifficulty) => {
+                $("#game-ctrl").append(`<span class="mine-level"><input type="radio" id="${difficultyLevel.name}" name="difficulty" value="${difficultyLevel.name},${difficultyLevel.sizeX},${difficultyLevel.sizeY},${difficultyLevel.mineCt}" class="difficulty"${difficultyLevel.name === currentDifficultyLevel ? ' checked' : ''}> <label for="${difficultyLevel.name}">${difficultyLevel.name.capitalize()}</label> </span>`);
+              });
+              $("#game-ctrl").append(`<br><input type="checkbox" name="life" id="life" value="life"> <label for="life" id="heart">❤️ Extra Life!</label><br><input type="checkbox" name="audio" id="audio" value="audio" checked> <label for="audio">🔈 Sound Effects</label>`);
+              if (mineTotalCount === 10) {
+                $(".mine-level").addClass('display-block');
+              }
+
+              const board = document.querySelectorAll('.board')[0];
+              let tiles, randomX, randomY;
+
+              const restartBtn = document.querySelectorAll('.btn')[0];
+              const endscreen = document.querySelectorAll('.endscreen')[0]
+
+              // settings
+              const boardSizeXBtn = document.getElementById('boardSizeX');
+              const boardSizeYBtn = document.getElementById('boardSizeY');
+              const tileSizeBtn = document.getElementById('tileSize');
+              const difficultyBtns = document.querySelectorAll('.difficulty');
+
+              let mines = [];
+              let numbers = [];
+              let numberColors = ['#3498db', '#2ecc71', '#e74c3c', '#9b59b6', '#f1c40f', '#1abc9c', '#34495e', '#7f8c8d',];
+              let endscreenContent = {win: '<span class="checkmark">✔</span> you won!', loose: '💣 Booom! Game over.'};
+
+              let gameOver = false;
+              let isFirstClick = true;
+              let mineSetCount = 0;
+              let flagDecrementor = mineTotalCount;
+              let intervalId;
+              let timerState = 0; //  0 = reset/idle, 1 = running, 2 = paused
+              let elapsedTime = 0;
+              let startSeconds, currentSeconds, bestScores;
+              const bestScoreOrdinalLookup = {1: 'First', 2: 'Second', 3: 'Third'};
+
+              /* clear board */
+              const clear = () => {
+                // console.clear();
+                isFirstClick = true;
+                gameOver = false;
+                mines = [];
+                numbers = [];
+                endscreen.innerHTML = "<span id='close-modal' onclick='closeModal()'>x</span>";
+                endscreen.classList.remove('show');
+                tiles.forEach(tile => {
+                  tile.remove();
+                });
+                mineSetCount = 0;
+                counter = 0;
+                timerState = 0;
+                elapsedTime = 0;
+                flagDecrementor = mineTotalCount;
+
+                clearInterval(intervalId);
+                restoreExtraLife();
+                setup();
+              }
+
+              const closeModal = () => {
+                endscreen.classList.remove('show');
+              };
+
+              /* setup the game */
+              const setup = () => {
+                for (let i = 0; i < (sizeX * sizeY); i++) {
+                  const tile = document.createElement('div');
+                  tile.classList.add('tile');
+                  board.appendChild(tile);
+                }
+                tiles = document.querySelectorAll('.tile');
+                // boardSize = Math.sqrt(tiles.length);
+                board.style.width = sizeX * tileSize + 'px';
+                board.style.height = sizeY * tileSize + 'px';
+
+                document.documentElement.style.setProperty('--tileSize', `${tileSize}px`);
+                document.documentElement.style.setProperty('--boardSize', `${(sizeX + sizeY) / 2 * tileSize}px`);
+
+                let x = 0;
+                let y = 0;
+                tiles.forEach((tile, i) => {
+                  // set tile coordinates
+                  tile.setAttribute('data-tile', `${x},${y}`);
+
+                  x++;
+                  if (x >= sizeX) {
+                    x = 0;
+                    y++;
+                  }
+
+                  /* rightclick */
+                  tile.oncontextmenu = function (e) {
+                    e.preventDefault();
+                    flag(tile);
+                  }
+
+                  /* leftclick */
+                  tile.addEventListener('click', function (e) {
+                    clickTile(tile);
+                  });
+                });
+
+                $("#mine-count").html(mineTotalCount.toString().padStart(3, '0'));
+                $("#timer").html('000');
+                document.getElementById("mr-smiley").style.backgroundImage = "url('/img/app/minesweeper/ICON_smiley_normal.png')";
+              }
+
+              /* setup the game */
+              const initiateGame = coordinate => {
+                let coords = coordinate.split(',');
+                let x = parseInt(coords[0]);
+                let y = parseInt(coords[1]);
+
+                var i;
+
+                // add mines
+                do {
+                  randomX = Math.floor(Math.random() * sizeX);
+                  randomY = Math.floor(Math.random() * sizeY);
+                  if (coordinate === `${randomX},${randomY}` || mines.includes(`${randomX},${randomY}`)) {
+                    continue;
+                  }
+                  mines.push(`${randomX},${randomY}`);
+                  if (randomX > 0) numbers.push(`${randomX - 1},${randomY}`);
+                  if (randomX < sizeX - 1) numbers.push(`${randomX + 1},${randomY}`);
+                  if (randomY > 0) numbers.push(`${randomX},${randomY - 1}`);
+                  if (randomY < sizeY - 1) numbers.push(`${randomX},${randomY + 1}`);
+
+                  if (randomX > 0 && randomY > 0) numbers.push(`${randomX - 1},${randomY - 1}`);
+                  if (randomX < sizeX - 1 && randomY < sizeY - 1) numbers.push(`${randomX + 1},${randomY + 1}`);
+
+                  if (randomY > 0 && randomX < sizeX - 1) numbers.push(`${randomX + 1},${randomY - 1}`);
+                  if (randomX > 0 && randomY < sizeY - 1) numbers.push(`${randomX - 1},${randomY + 1}`);
+
+                  // mineSetCount++;
+                } while (mines.length < mineTotalCount);
+
+                numbers.forEach(num => {
+                  let coords = num.split(',');
+                  let tile = document.querySelectorAll(`[data-tile="${parseInt(coords[0])},${parseInt(coords[1])}"]`)[0];
+                  let dataNum = parseInt(tile.getAttribute('data-num'));
+                  if (!dataNum) dataNum = 0;
+                  tile.setAttribute('data-num', dataNum + 1);
+                });
+
+                startTimer();
+              }
+
+              /* flag a tile */
+              const flag = (tile, onlyAdd = false) => {
+                if (gameOver) return;
+                if (!tile.classList.contains('tile--checked')) {
+                  if (!tile.classList.contains('tile--flagged')) {
+                    tile.innerHTML = '🚩';
+                    tile.classList.add('tile--flagged');
+                    flagDecrementor--;
+                  } else if (!onlyAdd) {
+                    tile.innerHTML = '';
+                    tile.classList.remove('tile--flagged');
+                    flagDecrementor++;
+                  }
+                  $("#mine-count").html(flagDecrementor.toString().padStart(3, '0'));
+                }
+              }
+
+              function removeTransition(e) {
+                if (e.propertyName !== 'transform') return;
+                e.target.classList.remove('playing');
+              }
+
+              const playSound = (thisKeyCode, tile = null) => {
+                if (document.getElementById("audio").checked) {
+                  const audio = document.querySelector(`audio[data-key="${thisKeyCode}"]`);
+                  if (!audio) return;
+                  if (tile) {
+                    tile.classList.add('playing');
+                  }
+                  audio.currentTime = 0;
+                  audio.play();
+                }
+              }
+
+              /* check if mine or not */
+              const clickTile = (tile) => {
+                if (gameOver) return;
+                if (tile.classList.contains('tile--checked') || tile.classList.contains('tile--flagged')) return;
+                let coordinate = tile.getAttribute('data-tile');
+                if (isFirstClick) {
+                  isFirstClick = false;
+                  initiateGame(coordinate);
+                }
+                if (mines.includes(coordinate)) {
+                  if (document.getElementById("life").checked) {
+                    tile.addEventListener('transitionend', removeTransition);
+                    playSound('UhOh', tile);
+                    document.getElementById("life").style.display = 'none';
+                    document.getElementById("life").checked = false;
+                    document.getElementById("heart").innerHTML = '🖤 (used) <button style="color: black" onclick="restoreExtraLife()">But it was an accident!</button>';
+                  } else {
+                    clearInterval(intervalId);
+                    playSound('explode', tile);
+                    endGame(tile);
+                    // tile.classList.add('tile--checked');
+                  }
+                } else {
+                  /* check if nearby mine */
+                  let num = tile.getAttribute('data-num');
+                  if (num != null) {
+                    tile.classList.add('tile--checked');
+                    tile.innerHTML = num;
+                    tile.style.color = numberColors[num - 1];
+                    setTimeout(() => {
+                      checkVictory(tile);
+                    }, 100);
+
+                    /* leftclick */
+                    tile.addEventListener('click', function (e) {
+                      checkNumMatchesFlagCount(tile, coordinate, num);
+                    });
+                    return;
+                  }
+                  checkTile(tile, coordinate);
+                  tile.classList.add('tile--checked');
+                }
+              }
+
+              /* if a number was clicked, and it matches the flag count, open all surrounding tiles */
+              const checkNumMatchesFlagCount = (tile, coordinate, num) => {
+
+                let coords = coordinate.split(',');
+                let x = parseInt(coords[0]);
+                let y = parseInt(coords[1]);
+
+                let flagCount = 0;
+
+                if (x > 0) {
+                  var targetW = document.querySelectorAll(`[data-tile="${x - 1},${y}"`)[0];
+                  flagCount = flagCount + targetW.classList.contains('tile--flagged');
+                }
+                if (x < sizeX - 1) {
+                  var targetE = document.querySelectorAll(`[data-tile="${x + 1},${y}"`)[0];
+                  flagCount = flagCount + targetE.classList.contains('tile--flagged');
+                }
+                if (y > 0) {
+                  var targetN = document.querySelectorAll(`[data-tile="${x},${y - 1}"]`)[0];
+                  flagCount = flagCount + targetN.classList.contains('tile--flagged');
+                }
+                if (y < sizeY - 1) {
+                  var targetS = document.querySelectorAll(`[data-tile="${x},${y + 1}"]`)[0];
+                  flagCount = flagCount + targetS.classList.contains('tile--flagged');
+                }
+                if (x > 0 && y > 0) {
+                  var targetNW = document.querySelectorAll(`[data-tile="${x - 1},${y - 1}"`)[0];
+                  flagCount = flagCount + targetNW.classList.contains('tile--flagged');
+                }
+                if (x < sizeX - 1 && y < sizeY - 1) {
+                  var targetSE = document.querySelectorAll(`[data-tile="${x + 1},${y + 1}"`)[0];
+                  flagCount = flagCount + targetSE.classList.contains('tile--flagged');
+                }
+                if (y > 0 && x < sizeX - 1) {
+                  var targetNE = document.querySelectorAll(`[data-tile="${x + 1},${y - 1}"]`)[0];
+                  flagCount = flagCount + targetNE.classList.contains('tile--flagged');
+                }
+                if (x > 0 && y < sizeY - 1) {
+                  var targetSW = document.querySelectorAll(`[data-tile="${x - 1},${y + 1}"`)[0];
+                  flagCount = flagCount + targetSW.classList.contains('tile--flagged');
+                }
+
+                if (flagCount == num) {
+                  if (x > 0) {
+                    clickTile(targetW, `${x - 1},${y}`);
+                  }
+                  if (x < sizeX - 1) {
+                    clickTile(targetE, `${x + 1},${y}`);
+                  }
+                  if (y > 0) {
+                    clickTile(targetN, `${x},${y - 1}`);
+                  }
+                  if (y < sizeY - 1) {
+                    clickTile(targetS, `${x},${y + 1}`);
+                  }
+                  if (x > 0 && y > 0) {
+                    clickTile(targetNW, `${x - 1},${y - 1}`);
+                  }
+                  if (x < sizeX - 1 && y < sizeY - 1) {
+                    clickTile(targetSE, `${x + 1},${y + 1}`);
+                  }
+                  if (y > 0 && x < sizeX - 1) {
+                    clickTile(targetNE, `${x + 1},${y - 1}`);
+                  }
+                  if (x > 0 && y < sizeY - 1) {
+                    clickTile(targetSW, `${x - 1},${y + 1}`);
+                  }
+                }
+              }
+
+              /* clicked the right one */
+              const checkTile = (tile, coordinate) => {
+                // console.log('✔');
+                let coords = coordinate.split(',');
+                let x = parseInt(coords[0]);
+                let y = parseInt(coords[1]);
+
+                /* check nearby tiles */
+                setTimeout(() => {
+                  if (x > 0) {
+                    let targetW = document.querySelectorAll(`[data-tile="${x - 1},${y}"`)[0];
+                    clickTile(targetW, `${x - 1},${y}`);
+                  }
+                  if (x < sizeX - 1) {
+                    let targetE = document.querySelectorAll(`[data-tile="${x + 1},${y}"`)[0];
+                    clickTile(targetE, `${x + 1},${y}`);
+                  }
+                  if (y > 0) {
+                    let targetN = document.querySelectorAll(`[data-tile="${x},${y - 1}"]`)[0];
+                    clickTile(targetN, `${x},${y - 1}`);
+                  }
+                  if (y < sizeY - 1) {
+                    let targetS = document.querySelectorAll(`[data-tile="${x},${y + 1}"]`)[0];
+                    clickTile(targetS, `${x},${y + 1}`);
+                  }
+
+                  if (x > 0 && y > 0) {
+                    let targetNW = document.querySelectorAll(`[data-tile="${x - 1},${y - 1}"`)[0];
+                    clickTile(targetNW, `${x - 1},${y - 1}`);
+                  }
+                  if (x < sizeX - 1 && y < sizeY - 1) {
+                    let targetSE = document.querySelectorAll(`[data-tile="${x + 1},${y + 1}"`)[0];
+                    clickTile(targetSE, `${x + 1},${y + 1}`);
+                  }
+
+                  if (y > 0 && x < sizeX - 1) {
+                    let targetNE = document.querySelectorAll(`[data-tile="${x + 1},${y - 1}"]`)[0];
+                    clickTile(targetNE, `${x + 1},${y - 1}`);
+                  }
+                  if (x > 0 && y < sizeY - 1) {
+                    let targetSW = document.querySelectorAll(`[data-tile="${x - 1},${y + 1}"`)[0];
+                    clickTile(targetSW, `${x - 1},${y + 1}`);
+                  }
+                }, 10);
+              }
+
+              /* Bomb clicked -> end game */
+              const endGame = (tile) => {
+                // console.log('💣 Booom! Game over.');
+                document.getElementById("mr-smiley").style.backgroundImage = "url('/img/app/minesweeper/ICON_smiley_lost.png')";
+                endscreen.innerHTML += endscreenContent.loose;
+                endscreen.classList.add('show');
+                gameOver = true;
+                tiles.forEach(tile => {
+                  let coordinate = tile.getAttribute('data-tile');
+                  if (mines.includes(coordinate)) {
+                    tile.classList.remove('tile--flagged');
+                    tile.classList.add('tile--checked', 'tile--mine');
+                    tile.innerHTML = '💣';
+                  }
+                });
+              }
+
+              const checkVictory = (tile) => {
+                let win = true;
+                tiles.forEach(tile => {
+                  let coordinate = tile.getAttribute('data-tile');
+                  if (!tile.classList.contains('tile--checked') && !mines.includes(coordinate)) win = false;
+                });
+                if (win && !gameOver) {
+                  clearInterval(intervalId);
+                  playSound('homer', tile);
+                  bestScores = read_cookie('best_scores') ? read_cookie('best_scores') : {};
+                  let timerResult = parseInt($("#timer").html());
+                  const isBestScore = !(currentDifficultyLevel in bestScores) || bestScores[currentDifficultyLevel].length < 3 || (bestScores[currentDifficultyLevel][2] && bestScores[currentDifficultyLevel][2] > timerResult);
+                  if (document.getElementById("life").checked) {
+                    setTimeout(function () {playSound('freeguy', tile); $("#savedfreeguy").slideDown();}, isBestScore ? 7100 : 900);
+                  }
+                  let bestScoreOrdinal = '';
+                  if (isBestScore) {
+                    if (Array.isArray(bestScores[currentDifficultyLevel])) {
+                      bestScores[currentDifficultyLevel].push(timerResult);
+                    } else {
+                      bestScores[currentDifficultyLevel] = [timerResult];
+                    }
+                    bestScores[currentDifficultyLevel].sort((a, b) => a - b);
+                    bestScores[currentDifficultyLevel] = bestScores[currentDifficultyLevel].slice(0, 3);
+                    bake_cookie('best_scores', bestScores);
+                    updateBestScores(bestScores);
+                    let bestScoreWording = bestScores[currentDifficultyLevel].indexOf(timerResult) ? `${bestScoreOrdinalLookup[bestScores[currentDifficultyLevel].indexOf(timerResult) + 1]} ` : '';
+                    bestScoreOrdinal = `<br>&mdash;&mdash;&mdash;<div style='text-align:center'>This was your<br><strong>${bestScoreWording}Best Score</strong><br>on the ${currentDifficultyLevel} level!!</div>`;
+
+                    setTimeout(function () {playSound('record', tile);}, 900);
+                  }
+                  document.getElementById("mr-smiley").style.backgroundImage = "url('/img/app/minesweeper/ICON_smiley_win.png')";
+                  endscreen.innerHTML += `<div style='text-align:center'>${endscreenContent.win}${bestScoreOrdinal}<span id="savedfreeguy" style="display: none">———<br>You saved your EXTRA LIFE!</span></div>`;
+                  endscreen.classList.add('show');
+                  tiles.forEach((tile, i) => {
+                    flag(tile, true);
+                  });
+                  gameOver = true;
+                }
+              }
+
+              const updateBestScores = (bestScores) => {
+                if (!bestScores) {
+                  bestScores = read_cookie('best_scores') ? read_cookie('best_scores') : {};
+                }
+                if (Object.entries(bestScores).length) {
+                  $("#bestScoresDiv").html("<h3>Best Scores</h3>");
+                  difficultyArray.forEach((difficultyLevel, indexDifficulty) => {
+                    if (Array.isArray(bestScores[difficultyLevel.name])) {
+                      $("#bestScoresDiv").append("<h5>" + difficultyLevel.name.capitalize() + `</h5><ol id='${difficultyLevel.name}_ul' style='padding-left: 40px'></ol>`);
+                      bestScores[difficultyLevel.name].forEach((score, indexScore) => {
+                        $(`#${difficultyLevel.name}_ul`).append(`<li>${score}</li>`);
+                      });
+                    }
+                  });
+                  $("#bestScoresDiv").append("<button onclick='clearBestScores()'>Clear Best Scores</button>");
+                } else {
+                  $("#bestScoresDiv").empty();
+                }
+              };
+
+              const delete_cookie = name => {
+                document.cookie = [name, '=; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/; domain=.', window.location.host.toString()].join('');
+              }
+
+              const clearBestScores = () => {
+                if (confirm("Are you sure you want to clear your best scores?")) {
+                  delete_cookie('best_scores');
+                  document.getElementById("bestScoresDiv").innerHTML = "<h3>Best Scores have been cleared!</h3>";
+                }
+              }
+
+              const restoreExtraLife = () => {
+                // reset extra life
+                document.getElementById("life").style.display = 'inline';
+                document.getElementById("heart").innerHTML = '❤️ Extra Life!';
+                // document.getElementById("life").checked = true; <-- did not work on button click for some reason
+                $("#life").attr('checked', true);
+                // document.getElementById("life").checked = true;
+              }
+
+              const bake_cookie = (name, value) => {
+                // BEGIN set expiration date
+                let d = new Date();
+                d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
+                let expires = "; expires=" + d.toUTCString();
+                // document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+                // END set expiration date
+                var cookie = [name, '=', JSON.stringify(value), '; domain=.', window.location.host.toString(), expires, '; path=/;'].join('');
+                document.cookie = cookie;
+              };
+
+              const startTimer = () => {
+                // BEGIN timer start (package in function)
+                startSeconds = Math.round((new Date()).getTime() / 1000) - elapsedTime;
+                timerState = 1;
+                intervalId = setInterval(() => {
+                  currentSeconds = Math.round((new Date()).getTime() / 1000);
+                  // counter += 1;
+                  counter = currentSeconds - startSeconds;
+                  if (counter === 900) {
+                    playSound('hurry_up');
+                  } else if (counter === 999) {
+                    clearInterval(intervalId);
+                  }
+                  $("#timer").html(counter.toString().padStart(3, '0'));
+                }, 1000);
+              };
+
+              $(window).focus(function () {
+                // unpause if game is started
+                if (timerState === 2 && !gameOver) {
+                  $(".tile").show();
+                  startTimer();
+                }
+
+              });
+
+              $(window).blur(function () {
+                // pause if game is started
+                if (timerState === 1 && !gameOver) {
+                  clearInterval(intervalId);
+                  timerState = 2;
+                  $(".tile").hide();
+                  elapsedTime = parseInt($("#timer").html());
+                }
+              });
+
+              /* start game */
+              setup();
+              updateBestScores();
+
+              /* click button for new game */
+              restartBtn.addEventListener('click', function (e) {
+                // restoreExtraLife();
+                $("#life").prop('checked', true);
+                e.preventDefault();
+                clear();
+              });
+
+              // settings
+              /*
+              boardSizeXBtn.addEventListener('change', function(e) {
+                console.log(this.value);
+                sizeX = this.value;
+                clear();
+              });
+              boardSizeYBtn.addEventListener('change', function(e) {
+                console.log(this.value);
+                sizeY = this.value;
+                clear();
+              });
+              
+              tileSizeBtn.addEventListener('change', function(e) {
+                console.log(this.value);
+                tileSize = this.value;
+                clear();
+              });*/
+
+              difficultyBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                  // console.log(this.value);
+                  difficultyConfigsRaw = this.value;
+                  let difficultyConfigs = difficultyConfigsRaw.split(',');
+
+                  if (difficultyConfigs[0] === 'expert' && currentDifficultyLevel !== 'expert') {
+                    playSound('expert');
+                    console.log(currentDifficultyLevel);
+                  } else if ((difficultyConfigs[0] === 'beginner' && currentDifficultyLevel !== 'beginner') || (difficultyConfigs[0] === 'intermediate' && currentDifficultyLevel === 'expert')) {
+                    playSound('beginner');
+                    console.log(currentDifficultyLevel);
+                  } else if (difficultyConfigs[0] === 'intermediate' && currentDifficultyLevel !== 'intermediate') {
+                    playSound('intermediate');
+                    console.log(currentDifficultyLevel);
+                  }
+                  currentDifficultyLevel = difficultyConfigs[0];
+                  bake_cookie('minesweeper_difficulty_level', currentDifficultyLevel);
+                  sizeX = parseInt(difficultyConfigs[1]);
+                  sizeY = parseInt(difficultyConfigs[2]);
+                  mineTotalCount = parseInt(difficultyConfigs[3]);
+                  if (mineTotalCount === 10) {
+                    $(".mine-level").addClass('display-block');
+                  } else {
+                    $(".mine-level").removeClass('display-block');
+                  }
+                  clear();
+                });
+              });
+
+            </script>
+
+            <p style="background-color: rgba(255,255,255,0.6)">This app represents the only JavaScript-based Minesweeper
+              clone that both visually & functionally matches the original Microsoft version.
+            </p>
+            <!-- /////////////////////////  END CONTENT ////////////////////////////// -->
+          </article>
+
+        </div>
+
+  </div>
+
+  </section>
+
+  </article>
+  </div>
+  <%- include ("../partials/footer.ejs") %>
+</body>
+
+</html>
