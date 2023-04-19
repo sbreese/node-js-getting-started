@@ -1,0 +1,380 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 9]><html class="ie"><![endif]-->
+<!--[if !IE]><!--><html><!--<![endif]-->
+<head>
+
+    <%- include ("../partials/header.ejs") %>
+
+</head>
+
+<body lang="en">
+<div id="container-nav">
+    <section id="nav" class="group wrapper">
+        <h3><a href="/" style="padding: 0">Steve Breese</a></h3>
+        <!-- Checkbox Hack markup -->
+        <input type="checkbox" id="toggle" />
+        <label for="toggle" onclick>Menu</label>
+        <!-- /Checkbox Hack markup -->
+        <%- include ("../partials/nav.ejs") %>
+
+    </section>
+</div>
+<%- include ("../partials/header-html.ejs") %>
+<div id="container-content">
+    <article id="content">
+
+        <!-- Classes removed / #portfolio -->
+        <!-- Element(s)/Classes added from Bootstrap's Scaffolding -->
+
+        <section id="portfolio" class="container-fluid">
+
+
+            <div class="row">
+
+                <div class="header">
+
+                    <header>
+                    <h2>Node.js Tutorial: Creating a Promise Helper Function for your Mongoose App</h2>
+                    </header>
+                    <!-- BEGIN Content -->
+
+                    <style>
+#tutorial li {
+    margin-top: 1rem;
+}
+                    </style>
+
+<p>Below is a quick tutorial on how to DRY your code by creating a Promise-based helper function in your Node.js/Mongoose app.  The solution utilizes a JavaScript Promise object, which was first introduced to the language in ES6.</p>
+<p>As a reminder, a Promise is an object that is used as a placeholder for the eventual results of a deferred (and possibly asynchronous) computation.  Promises offer more flexibility to developers than callbacks and help you write cleaner, easy-to-read code.</p>
+                    <ol id="tutorial">
+                    <li><p>Identify a contoller function that contains duplicated code.  In our example, we have an Express Route handler that contains two, nearly identical Express render functions, each within their own conditional blocks.  If the developer wanted to add local view variables to the template, they would have to add them to 2 places.  If they needed renaming, again they would have to be renamed in both locations.</p>
+                        <p>The reason this was done was because the <code>cart_items</code> and <code>cart_total</code> local view variables come from different sources depending on whether a user object exists on the request object.</p>
+<p>We have highlighted the duplicate code below:</p>
+                        <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<pre class="prettyprint lang-js">
+    exports.getBlog = (req, res, next) => {
+
+        if (req.user) {
+            req.user
+            .populate('cart.items.product')
+            .execPopulate()
+            .then(user => {
+<span class="nocode" style="background-color: yellow">            res.render('newDesign/blog', {
+                cart_items: user.cart.items,
+                cart_total: sumPropertyValue(user.cart.items, 'quantity'),
+                pageTitle: 'Blog',
+                path: '/blog'
+            });
+            })
+            .catch(err => {
+                const error = new Error(err);
+                error.httpStatusCode = 500;
+                return next(error);
+            });</span>
+        } else {
+            const cart_items = req.session.cart_items || [];
+<span class="nocode" style="background-color: yellow">            res.render('newDesign/blog', {
+                cart_items,
+                cart_total: cart_items.length ? sumPropertyValue(cart_items, 'quantity') : 0,
+                pageTitle: 'Blog',
+                path: '/blog'
+            }).catch(err => {
+                const error = new Error(err);
+                error.httpStatusCode = 500;
+                return next(error);
+            });</span>
+        }
+        };
+</pre>
+<p>A solution to this duplicate code problem would be to move the code that generates the <code>cart_items</code> and <code>cart_total</code> values into its own helper function.  Since these rely on asynchronous Mongoose calls, we will need place this code within our own Promise helper function, which we can then call from our getBlog route handler.
+                    </li>
+
+                        <li>Create helper function with an empty JavaScript promise.
+<pre class="prettyprint lang-js"><span class="nocode" style="background-color: yellow">
+exports.getShoppingCartData = req => {
+
+    return new Promise((resolve, reject) => {
+        resolve();
+        reject();
+    });
+    
+}
+</span></pre>
+                    </li>
+                    <li>Move the conditional statements and their blocks from the route handler to our new Promise helper function:
+<pre class="prettyprint lang-js">
+exports.getBlog = (req, res, next) => {
+
+    <span class="nocode" style="text-decoration: line-through;">if (req.user) {</span>
+        req.user
+        .populate('cart.items.product')
+        .execPopulate()
+        .then(user => {
+            res.render('newDesign/blog', {
+                cart_items: user.cart.items,
+                cart_total: sumPropertyValue(user.cart.items, 'quantity'),
+                pageTitle: 'Blog',
+                path: '/blog'
+            });
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
+    <span class="nocode" style="text-decoration: line-through;">} else {</span>
+        const cart_items = req.session.cart_items || [];
+        res.render('newDesign/blog', {
+            cart_items,
+            cart_total: cart_items.length ? sumPropertyValue(cart_items, 'quantity') : 0,
+            pageTitle: 'Blog',
+            path: '/blog'
+        }).catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
+    <span class="nocode" style="text-decoration: line-through;">}</span>
+};
+</pre>
+<pre class="prettyprint lang-js">
+exports.getShoppingCartData = req => {
+
+    return new Promise((resolve, reject) => {
+        <span class="nocode" style="background-color: yellow">if (req.user) {</span>
+            resolve();
+            reject();
+        <span class="nocode" style="background-color: yellow">} else {</span>
+            resolve();
+            reject();
+        <span class="nocode" style="background-color: yellow">}</span>
+    });
+    
+}
+</span></pre>
+<p>Notice that we duplicated the resolve and reject calls to each of the possible code paths.</p>
+
+                    </li>
+                    <li>Next, pull out and move to the helper the two separate methods of generating the <code>cart_items</code> array.
+<pre class="prettyprint lang-js">
+exports.getBlog = (req, res, next) => {
+
+    <span class="nocode" style="text-decoration: line-through;">req.user
+    .populate('cart.items.product')
+    .execPopulate()
+    .then(user => {</span>
+        res.render('newDesign/blog', {
+        cart_items: <span class="nocode" style="text-decoration: line-through;">user.cart.items</span>,
+        cart_total: <span class="nocode" style="text-decoration: line-through;">sumPropertyValue(user.cart.items, 'quantity')</span>,
+        pageTitle: 'Blog',
+        path: '/blog'
+        });
+    <span class="nocode" style="text-decoration: line-through;">})
+    .catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });</span>
+
+    <span class="nocode" style="text-decoration: line-through;">const cart_items = req.session.cart_items || [];</span>
+    res.render('newDesign/blog', {
+        cart_items,
+        cart_total: <span class="nocode" style="text-decoration: line-through;">cart_items.length ? sumPropertyValue(cart_items, 'quantity') : 0</span>,
+        pageTitle: 'Blog',
+        path: '/blog'
+    }).catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
+
+};
+</pre>
+
+<pre class="prettyprint lang-js">
+exports.getShoppingCartData = req => {
+
+    return new Promise((resolve, reject) => {
+        if (req.user) {
+            <span class="nocode" style="background-color: yellow">req.user
+            .populate('cart.items.product')
+            .execPopulate()
+            .then(user => {
+                const cart_items = user.cart.items;
+            })
+            .catch(err => {
+                const error = new Error(err);
+                error.httpStatusCode = 500;
+                return next(error);
+            });</span>
+            resolve();
+            reject();
+        } else {
+            <span class="nocode" style="background-color: yellow">const cart_items = req.session.cart_items || [];</span>
+            resolve();
+            reject();
+        }
+    });
+    
+}
+</pre>
+                    </li>
+
+        <li>Next, move the <code>resolve()</code> and <code>reject()</code> calls to their appropriate locations and populate with the fitted data.
+
+<pre class="prettyprint lang-js">
+exports.getShoppingCartData = req => {
+    return new Promise((resolve, reject) => {
+        if (req.user) {
+            req.user
+            .populate('cart.items.product')
+            .execPopulate()
+            .then(user => {
+                const cart_items = user.cart.items;
+                <span class="nocode" style="background-color: yellow">resolve({
+                    cart_items,
+                    cart_total: sumPropertyValue(cart_items, 'quantity')
+                });</span>
+            })
+            .catch(err => {
+                const error = new Error(err);
+                error.httpStatusCode = 500;
+                <span class="nocode" style="background-color: yellow">reject(error);</span>
+            });
+        } else {
+            const cart_items = req.session.cart_items || [];</span>
+            <span class="nocode" style="background-color: yellow">resolve({
+                cart_items,
+                cart_total: cart_items.length ? sumPropertyValue(cart_items, 'quantity') : 0
+            });</span>
+        }
+    });
+        
+}
+</pre>
+<p>Notice that because the else block does not contain any error prone code, we have removed the <code>reject()</code> call altogether.</p>
+                    </li>
+                    <li><p>Our Promise Helper Function is now complete and ready to be implemented within our Express route handler.</p>
+                        <p>But first, we must cleanup our duplicate render calls.</p>
+<pre class="prettyprint lang-js">
+exports.getBlog = (req, res, next) => {
+
+    <span class="nocode" style="text-decoration: line-through;">res.render('newDesign/blog', {
+        cart_items: ,
+        cart_total: ,
+        pageTitle: 'Blog',
+        path: '/blog'
+    });</span>
+
+    res.render('newDesign/blog', {
+        cart_items,
+        cart_total: ,
+        pageTitle: 'Blog',
+        path: '/blog'
+    }).catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
+
+};
+</pre>
+                </li>
+                <li>Lastly, add a call to our Promisfied Helper function, populate its <code>then</code> method with the Express render call, and assign its fulfillment value (e.g. <code>user_cart</code>) to the affected fields.</li>
+<pre class="prettyprint lang-js">
+exports.getBlog = (req, res, next) => {
+
+    <span class="nocode" style="background-color: yellow">this.getShoppingCartData(req)
+    .then(user_cart => {</span>
+        res.render('newDesign/blog', {
+            cart_items: <span class="nocode" style="background-color: yellow">user_cart.cart_items</span>,
+            cart_total: <span class="nocode" style="background-color: yellow">user_cart.cart_total</span>,
+            pageTitle: 'Blog',
+            path: '/blog'
+        }).catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
+    <span class="nocode" style="background-color: yellow">})
+    .catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });</span>
+
+};
+</pre>
+<p>If the helper function is in another JavaScript module file, replace <q>this</q> keyword with the variable name used in the import statement.</p>
+<p>Notice that we have 2 catch calls.  The first one catches errors with the render function, while the 2nd one catches errors with our new helper function.</p>
+</li>
+
+                    </ol>
+
+                    <h5>Completed DRY code</h5>
+<pre class="prettyprint lang-js">
+exports.getShoppingCartData = req => {
+
+    return new Promise((resolve, reject) => {
+        if (req.user) {
+        req.user
+        .populate('cart.items.product')
+        .execPopulate()
+        .then(user => {
+            const cart_items = user.cart.items;
+            resolve({
+            cart_items,
+            cart_total: sumPropertyValue(cart_items, 'quantity')
+            });
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            reject(error);
+        });
+        } else {
+        const cart_items = req.session.cart_items || [];
+        resolve({
+            cart_items,
+            cart_total: cart_items.length ? sumPropertyValue(cart_items, 'quantity') : 0
+        });
+        }
+    });
+    
+}
+
+exports.getBlog = (req, res, next) => {
+
+    this.getShoppingCartData(req)
+      .then(user_cart => {
+      res.render('newDesign/blog', {
+        cart_items: user_cart.cart_items,
+        cart_total: user_cart.cart_total,
+        pageTitle: 'Blog',
+        path: '/blog'
+      }).catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+      });
+    })
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
+  
+};
+</pre>
+
+                    <p>We have DRYed our code by creating and implementing a promise-based helper function.  The resulting route handler is cleaner and easier to understand.  Additionally, we can now re-use our <code>getShoppingCartData</code> helper function in any of our other Express pages that require the <code>cart_items</code> data.</p>
+                    <!-- END Content -->
+                </div>
+
+        </section>
+
+    </article>
+</div>
+<%- include ("../partials/footer.ejs") %>
+</body>
+</html>
