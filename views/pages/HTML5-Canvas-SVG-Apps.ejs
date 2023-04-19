@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+
+    <%- include ("../partials/header.ejs") %>
+
+  </head>
+
+  <body lang="en">
+    <div id="container-nav">
+      <section id="nav" class="group wrapper">
+        <h3><a href="/" style="padding: 0">Steve Breese</a></h3>
+            <!-- Checkbox Hack markup -->
+            <input type="checkbox" id="toggle" />
+            <label for="toggle" onclick>Menu</label>
+            <!-- /Checkbox Hack markup -->
+            <%- include ("../partials/nav.ejs") %> 
+      
+      </section>
+    </div>
+    <%- include ("../partials/header-html.ejs") %>
+    <div id="container-content">
+      <article id="content">
+      
+      <!-- Classes removed / #portfolio -->
+      <!-- Element(s)/Classes added from Bootstrap's Scaffolding -->
+      
+        <section id="portfolio" class="container-fluid">
+        
+                    <header>
+                        <h3>HTML Canvas Apps</h3>
+                        <p>I have utilized the Canvas API to make numbers come alive.</p>
+                    </header>
+                    
+                    <div class="row">
+                    
+                        <article class="col-md-6">
+
+<div class="content_margin_left_right" style="margin: 0 15px 0; width: 823px;">
+
+<h3 style="margin-top: 10px">Marriott eBreaks Single Page Application</h3>
+  <div>
+I developed the animated and interactive North American map on the <q>Marriott eBreaks</q> App.  Hover and click events on geographic landmass and the animated bubbles coorespond to Marriott Hotel's network regions and launch an Angular/Foundation modal upon click.  And as it is an SVG, the map looks spectacular whether it is in a mobile phone or a 60 inch TV!
+  </div>
+  <div><a href="http://hs2devlx05.hs2solutions.com/creative/ebreaks-v2/#/home"><img alt="" title="Marriott eBreaks" src="/img/screenshots/HTML5-Canvas-SVG-Apps/SCREEN_Marriott_eBreaks_SPA.png" border="0">
+  </a></div>
+
+  <h3 style="margin-top: 20px">Bar Graph with HTML5 Canvas and JavaScript</h3>
+  <div>
+This graph is generated on page load using Javascript and HTHM5 Canvas using personal record road race finish times.  Manipulation of the controls below the graph dynamically changes the height and curve of the Age Grade Line.
+  </div>
+  <div><img alt="" title="" src="/img/screenshots/HTML5-Canvas-SVG-Apps/SCREEN_Live_Charting_Canvas_HTML5.png" border="0" width="520" height="432"></div>
+
+  <h3 style="margin-top: 20px">Line Graph with HTML5 Canvas and JavaScript</h3>
+  <div>
+The <q>Rankings Positions Throughout the Circuit</q> line charts are generated on page load using Javascript and HTHM5 Canvas using road racer rankings.  The feature has been credited for adding a whole new level of excitement and camaraderie for athletes competing in the Chicago Area Runners Association's Runners Choice Race Circuit.
+  </div>
+  <div><img alt="" title="" src="/img/screenshots/HTML5-Canvas-SVG-Apps/SCREEN_HTML5_Racer_Rankings.png" border="0" width="510" height="306"></div>
+<div style="margin-top:10px;font-size:120%">See it in action: <a href="http://www.roadracing.rocks/Trophy-Case/Rankings-Chart.php">www.RoadRacing.Rocks/Trophy-Case/Rankings-Chart.php</a></div>
+</div>
+
+                        </article>
+                        
+                        </div>
+
+                    </div>
+                    
+                </section>
+    
+      </article>
+    </div>
+    <%- include ("../partials/footer.ejs") %>
+  </body>
+</html>
