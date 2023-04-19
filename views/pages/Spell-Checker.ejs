@@ -1,0 +1,517 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 9]><html class="ie"><![endif]-->
+<!--[if !IE]><!--><html><!--<![endif]-->
+  <head>
+
+    <%- include ("../partials/header.ejs") %>
+
+  </head>
+
+  <body lang="en">
+    <div id="container-nav">
+      <section id="nav" class="group wrapper">
+        <h3><a href="/" style="padding: 0">Steve Breese</a></h3>
+            <!-- Checkbox Hack markup -->
+            <input type="checkbox" id="toggle" />
+            <label for="toggle" onclick>Menu</label>
+            <!-- /Checkbox Hack markup -->
+            <%- include ("../partials/nav.ejs") %> 
+      
+      </section>
+    </div>
+    <%- include ("../partials/header-html.ejs") %>
+    <div id="container-content">
+      <article id="content">
+      
+      <!-- Classes removed / #portfolio -->
+      <!-- Element(s)/Classes added from Bootstrap's Scaffolding -->
+
+        <section id="portfolio" class="container-fluid">
+
+                    <!--header>
+                        <h3>Spelling Corrector</h3>
+                        <p></p>
+                    </header-->
+
+                    <div class="row">
+
+                        <article class="col-md-6">
+
+<!-- ////////////////////////////////////////////////////////////// -->
+
+<style>
+
+#debugging_output {
+    display: none;
+    color: blue;
+    font-weight: bold;
+    background-color: aqua;
+    white-space: pre;
+    font-family: monospace;
+    margin: 6px 6px 6px 6px;
+    padding: 12px 12px 12px 12px;
+    border-style: solid;
+    border-width: thin;
+    border-color: black;
+}
+
+div#debug {
+    display: none;
+    position: absolute;
+    bottom: 10px;
+    right: 0px;
+    height: 20px;
+    width: 250px;
+    /*background-color: #2C6483;*/
+}
+
+.spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -200px;
+ /* half width of the spinner gif */
+    margin-top: -76px;
+ /* half height of the spinner gif */
+    text-align: center;
+    z-index: 1234;
+    overflow: auto;
+    width: 400px;
+ /* width of the spinner gif */
+    height: 152px;
+ /*height of the spinner gif +2px to fix IE8 issue */;
+}
+
+.word-list {
+    list-style: none;
+}
+
+.word-item {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    margin-left: 0px;
+    margin-right: 5px;
+}
+
+.word-pill {
+    float: left;
+    margin-top: 2px;
+    margin-bottom: 0px;
+    display: inline-block;
+    vertical-align: middle;
+    zoom: 1;
+    cursor: default;
+    white-space: nowrap;
+}
+
+levenshtein-count {
+    background-color: #0073b2;
+    border-bottom-color: #0073b2;
+    min-width: 18px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 2px;
+    padding-right: 2px;
+    font-weight: bold;
+    color: #fff;
+    display: inline;
+    float: left;
+    line-height: 24px;
+}
+
+.word-span {
+    border-radius: 4px 4px 4px 4px;
+    float: left;
+    line-height: 24px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 13px;
+    padding-right: 13px;
+    font-size: 13px;
+    color: #333;
+    font-weight: normal;
+    background-color: #f0f0f0;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+.word-link {
+    font-size: 13px;
+    line-height: 17px;
+    color: #333;
+    font-weight: normal;
+    text-decoration: none;
+}
+</style>
+
+    
+
+
+  <div class="container-fluid text-center" style="text-align:center; position:relative; height: 100%">
+    <h2>Spelling Corrector</h2>
+    <h4>By Steve Breese</h4>
+    <p>Instructions: Type in a misspelling and hit <span style="font-size:120%;font-weight:bold">Enter</span>.  The application will suggest a corrected spelling.
+    </p>
+ 
+      <input type="text" id="user_input" class="input-large search-query">
+
+    <div id="spinner" class="spinner" style="display:none;">
+      <img id="img-spinner" src="/img/app/spell_check/wait.gif" alt="Loading"/>
+    </div>
+
+    <div id="debugging_output"></div>
+    <div id="Suggested_Correction" style="margin:50px"></div>
+    <div id="debug"><a href="#">Show Intermediate Results</a></div>
+
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+///////////////////////////////
+///  BEGIN Spinner
+///  https://blog.oio.de/2010/11/08/how-to-create-a-loading-animation-spinner-using-jquery/
+$(document).ready(function() {
+    $("#spinner").bind("ajaxSend", function() {
+        $(this).show();
+    }).bind("ajaxStop", function() {
+        $(this).hide();
+    }).bind("ajaxError", function() {
+        $(this).hide();
+    });
+
+});
+
+///  END Spinner
+////////////////////////////////
+
+// On-screen debugger
+$("#debug a").click(function(e) {
+    e.preventDefault();
+    $("#debugging_output").toggle("slow", function() {
+        // Animation complete.
+    });
+    if ($("#debug a").html() == "Show Intermediate Results")
+        $("#debug a").html("Hide Intermediate Results");
+    else
+        $("#debug a").html("Show Intermediate Results");
+});
+
+// Reset view:
+$("#user_input").keydown(function() {
+    $("#Suggested_Correction").html("");
+});
+
+
+/////////////////////////////////////////////////////
+//  BEGIN levenshtein function
+//  Written by Rafał Kukawski (http://phpjs.org/functions/levenshtein/)
+function levenshtein(s1, s2) {
+        //       discuss at: http://phpjs.org/functions/levenshtein/
+        //      original by: Carlos R. L. Rodrigues (http://www.jsfromhell.com)
+        //      bugfixed by: Onno Marsman
+        //       revised by: Andrea Giammarchi (http://webreflection.blogspot.com)
+        // reimplemented by: Brett Zamir (http://brett-zamir.me)
+        // reimplemented by: Alexander M Beedie
+        //        example 1: levenshtein('Kevin van Zonneveld', 'Kevin van Sommeveld');
+        //        returns 1: 3
+
+        if (s1 == s2) {
+            return 0;
+        }
+
+        var s1_len = s1.length;
+        var s2_len = s2.length;
+        if (s1_len === 0) {
+            return s2_len;
+        }
+        if (s2_len === 0) {
+            return s1_len;
+        }
+
+        // BEGIN STATIC
+        var split = false;
+        try {
+            split = !('0')[0];
+        } catch (e) {
+            split = true; // Earlier IE may not support access by string index
+        }
+        // END STATIC
+        if (split) {
+            s1 = s1.split('');
+            s2 = s2.split('');
+        }
+
+        var v0 = new Array(s1_len + 1);
+        var v1 = new Array(s1_len + 1);
+
+        var s1_idx = 0,
+            s2_idx = 0,
+            cost = 0;
+        for (s1_idx = 0; s1_idx < s1_len + 1; s1_idx++) {
+            v0[s1_idx] = s1_idx;
+        }
+        var char_s1 = '',
+            char_s2 = '';
+        for (s2_idx = 1; s2_idx <= s2_len; s2_idx++) {
+            v1[0] = s2_idx;
+            char_s2 = s2[s2_idx - 1];
+
+            for (s1_idx = 0; s1_idx < s1_len; s1_idx++) {
+                char_s1 = s1[s1_idx];
+                cost = (char_s1 == char_s2) ? 0 : 1;
+                var m_min = v0[s1_idx + 1] + 1;
+                var b = v1[s1_idx] + 1;
+                var c = v0[s1_idx] + cost;
+                if (b < m_min) {
+                    m_min = b;
+                }
+                if (c < m_min) {
+                    m_min = c;
+                }
+                v1[s1_idx + 1] = m_min;
+            }
+            var v_tmp = v0;
+            v0 = v1;
+            v1 = v_tmp;
+        }
+        return v0[s1_len];
+    }
+    //   END levenshtein function
+    /////////////////////////////////////////////////////
+
+
+/////////////////////////////////////
+
+
+$('#user_input').bind('keypress', function(e) {
+
+    var code = e.keyCode || e.which;
+    if (code == 13) {
+
+      var User_Input = $("#user_input").val();
+
+      if (!User_Input)
+      {
+          alert("Please type a word into the input box");
+      }
+      else
+      {
+
+        // Reset initial display
+        $("#debugging_output").html("").hide();
+        $("#Suggested_Correction").html("");
+        $("#debug").show();
+        $("#debug a").html("Show Intermediate Results");
+
+        var WordsDistances = [];
+
+        $.getJSON('/img/app/spell_check/english.json', function(arr) {
+ 
+            jQuery.each(arr, function(i) {
+
+                var Distance = levenshtein(this, User_Input);
+                //$( "#debugging_output" ).append( User_Input +" = " + this + ": "+Distance+"<br>");
+
+                WordsDistances[i] = {};
+                WordsDistances[i]["distance"] = Distance;
+                WordsDistances[i]["word"] = this;
+
+            });
+
+            // Sort the array based on Levenshtein distance:
+            WordsDistances.sort(function(a, b) {
+                // assuming distance is always a valid integer
+                return a.distance - b.distance;
+            });
+
+
+            var Candidates = [];
+            var CandidateGroup = [];
+            var score = 0;
+            var SecondGroup = false;
+            do {
+
+                CandidateGroup = WordsDistances.filter(function(obj) {
+                    return obj.distance == score;
+                });
+
+                if (CandidateGroup.length) {
+                    Candidates = Candidates.concat(CandidateGroup);
+                }
+
+                // Once we find the best matches, break out of the loop
+                if ((Candidates.length > 0 && score < 4) || SecondGroup) {
+                    break;
+                } else if (Candidates.length > 0) {
+                    SecondGroup = true;
+                }
+
+                score++;
+            } while (score < 12); // Give up if there are no distances under 10
+
+
+            if (Candidates.length == 0) {
+                Result = "NO SUGGESTION"
+                $("#debugging_output").append("(Levenshtein search returned no matches)");
+            } else if (Candidates.length == 1) {
+                Result = Candidates[0].word;
+                $("#debugging_output").append("(Levenshtein search returned just 1 result: " + Result + ")");
+
+            } else {
+
+                // Sort the candidates alphabetically
+                Candidates.sort(function(a, b) {
+                    if (a.word < b.word) return -1;
+                    if (a.word > b.word) return 1;
+                    return 0;
+                })
+
+                $("#debugging_output").append('<div id="left"><h4>Filter # 1: <q>Best Levenshtein matches</q></h4><ul class="word-list">');
+                jQuery.each(Candidates, function() {
+
+                    $("#debugging_output").append('<li class="word-item"><span class="word-pill"><span class="word-span"><a href="http://dictionary.reference.com/browse/' + this.word + '" title="See definition" class="word-link">' + this.word + '</a></span></span></li>');
+                });
+
+                $("#debugging_output").append('</ul></div>');
+
+
+
+                var SpellingMistakesPriorityRules = ["Got a case insensitive match?", "First Character Doesn't Match", "Last Character Doesn't Match", "Remove Repeated Characters", "Length Way Off", "Both 2nd And 2nd to Last Character Off", "Different Length", "Consonants Don't Match", "2nd to Last Character Off"];
+                var PreviousValidCandidates;
+
+                for (i = 0; i < SpellingMistakesPriorityRules.length; i++) {
+                    PreviousValidCandidates = Candidates;
+
+                    $("#debugging_output").append("<h4>Filter #" + (i + 2) + ": <q>" + SpellingMistakesPriorityRules[i] + "</q></h4>");
+
+                    switch (SpellingMistakesPriorityRules[i]) {
+
+                        case "Got a case insensitive match?":
+
+                            Candidates = Candidates.filter(function(obj) {
+                                return obj.word.toLowerCase() == User_Input.toLowerCase();
+                            });
+
+                            break;
+
+                        case "First Character Doesn't Match":
+
+                            Candidates = Candidates.filter(function(obj) {
+                                return obj.word.charAt(0).toLowerCase() == User_Input.charAt(0).toLowerCase();
+                            });
+
+                            break;
+
+                        case "Last Character Doesn't Match":
+
+                            Candidates = Candidates.filter(function(obj) {
+                                return obj.word.slice(-1).toLowerCase() == User_Input.slice(-1).toLowerCase();
+                            });
+                            break;
+
+                        case "Remove Repeated Characters":
+
+                            Candidates = Candidates.filter(function(obj) {
+                                return obj.word == User_Input.split("").filter(function(x, n, s) {
+                                    return s.indexOf(x) == n
+                                }).join("");
+                            });
+
+                            break;
+
+                        case "Length Way Off":
+
+                            Candidates = Candidates.filter(function(obj) {
+                                return obj.word.length == User_Input.length || obj.word.length == ++User_Input.length || obj.word.length == --User_Input.length;
+                            });
+                            break;
+
+                        case "Both 2nd And 2nd to Last Character Off":
+
+                            Candidates = Candidates.filter(function(obj) {
+                                return obj.word.charAt(1).toLowerCase() == User_Input.charAt(1).toLowerCase() || obj.word.slice(-2).toLowerCase() == User_Input.slice(-2).toLowerCase();
+                            });
+                            break;
+
+                        case "Different Length":
+
+                            Candidates = Candidates.filter(function(obj) {
+                                return obj.word.length == User_Input.length;
+                            });
+                            break;
+
+                        case "Consonants Don't Match":
+
+                            Candidates = Candidates.filter(function(obj) {
+                                return obj.word.replace(/[aeiou]/ig, '') == User_Input.replace(/[aeiou]/ig, '');
+                            });
+
+                            break;
+							
+                        case "2nd to Last Character Off":
+
+                            Candidates = Candidates.filter(function(obj) {
+                                return obj.word.slice(-2).toLowerCase() == User_Input.slice(-2).toLowerCase();
+                            });
+                            break;
+
+                    }
+
+
+                    if (Candidates.length == 0) {
+                        $("#debugging_output").append("(No candidates removed)");
+                        Candidates = PreviousValidCandidates;
+                    } else {
+
+                        // Print candidate list to debugger:
+                        $("#debugging_output").append('<ul class="word-list">');
+                        jQuery.each(Candidates, function() {
+                            
+                            $("#debugging_output").append('<li class="word-item"><span class="word-pill"><span class="word-span"><a href="http://dictionary.reference.com/browse/' + this.word + '" title="See definition" class="word-link">' + this.word + '</a></span></span></li>');
+                        });
+                        $("#debugging_output").append('</ul>');
+                    }
+
+                    // Down to a single candidate so we'll stop culling the list
+                    if (Candidates.length == 1) {
+                        break;
+                    }
+
+
+                } // END foreach Rule
+
+                Result = Candidates[0].word;
+                $("#debug").show();
+
+            } // END there is a suggestion
+
+
+            $("#Suggested_Correction").html((Result == User_Input ? "<h2 style='background-color:green;color:white;width:200px;margin:auto'>Correctly Spelled!</h2>" : "<h3>Suggested Correction:</h3>") + "<h1>" + Result + "</h1>").show();
+
+        }); // END get english.JSON
+      } // END input box NOT empty
+    }  // END keyCode == 13 (Enter)
+}); // END keypress while in input box
+    </script>
+
+<!-- ////////////////////////////////////////////////////////////// -->
+
+                        </article>
+                        
+                        </div>
+                        
+ 
+    
+                   
+                
+                    </div>
+                    
+                </section>
+    
+      </article>
+    </div>
+   <%- include ("../partials/footer.ejs") %>
+  </body>
+</html>
