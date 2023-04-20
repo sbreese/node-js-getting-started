@@ -1,0 +1,57 @@
+
+.header .h1 {
+    margin: 10px 0 20px;
+    font-size: 2.5em;
+    text-align: center;
+    color: #fff;
+    text-shadow: #000 0px 2px 4px;
+}
+
+.btn-wrap {
+    display: block;
+    margin: 0 auto 1em;
+    clear: both;
+    text-align: center;
+}
+.btn {
+    display: inline-block;
+    position: relative;
+    margin: 0 10px 5px;
+    text-align: left;
+    vertical-align: top;
+}
+.btn > a {
+    display: block;
+    position: relative;
+    padding: 0.8em 1.75em 0.7em;
+    color: #fff;
+    text-shadow: rgba(0, 0, 0, 0.3) 0px -1px 0px;
+    font-size: 1.5em;
+    font-weight: 400;
+    line-height: 1em;
+    text-align: center;
+    background-color: #3479b4;
+    border-radius: 4px;
+    z-index: 0;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}
+a {
+    text-decoration: none;
+    color: #666;
+}
+
+pre {
+    margin: 0 5px 20px;
+    padding: 20px;
+    color: #444;
+    font-family: "Consolas", "Courier New", "Courier";
+    font-weight: 500;
+    background: #fff;
+    border: #EEE 1px solid;
+    border-radius: 10px;
+    width: 500px;
+}
