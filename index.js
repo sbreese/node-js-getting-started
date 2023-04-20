@@ -36,7 +36,7 @@ express()
 }).post('/api/upload', function (req, res) {
 
   // obtained from geeksforgeeks
-    const form = new formidable.IncomingForm();
+    /*const form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
  
         let oldPath = files.profilePic.filepath;
@@ -47,8 +47,9 @@ express()
         /*fs.writeFile(newPath, rawData, function (err) {
             if (err) console.log(err)
             return res.send(`Successfully uploaded`)
-        })*/
-        return res.send(`Successfully uploaded`)
-    })
+        })
+        
+    })*/
+    return res.send(`Successfully uploaded`)
 })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
