@@ -33,7 +33,7 @@ express()
     }
     res.send(files)
   }) // END readdir
-}).post('/api/upload', function (req, res) {
+}).post('/api/upload', (req, res) => {
 
   // obtained from geeksforgeeks
     /*const form = new formidable.IncomingForm();
@@ -50,6 +50,6 @@ express()
         })
         
     })*/
-    return res.send(`Successfully uploaded`)
+    return res.end(`Successfully uploaded`)
 })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
