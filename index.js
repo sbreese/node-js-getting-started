@@ -24,8 +24,16 @@ express()
   .get('/Node-js-Uploader',  (req, res) => res.render('pages/Node-js-Uploader'))
   .get('/Creating_a_Promise_Helper_Function_for_your_Mongoose_App', (req, res) => res.render('pages/Creating_a_Promise_Helper_Function_for_your_Mongoose_App'))
   .get('/Interactive-Websites-Image-Zooming', (req, res) => res.render('pages/Interactive-Websites-Image-Zooming'))
-  .get('/Common-Coding-Interview-Problems-and-their-Most-Optimal-Solutions',  (req, res) => res.render('pages/Common-Coding-Interview-Problems-and-their-Most-Optimal-Solutions')
-).post('/Node-js-Uploader', function (req, res) {
+  .get('/Common-Coding-Interview-Problems-and-their-Most-Optimal-Solutions',  (req, res) => res.render('pages/Common-Coding-Interview-Problems-and-their-Most-Optimal-Solutions'))
+  .get('/Upload-List', (req, res) => {
+  const uploadFolder = path.join(__dirname, 'public/uploads')
+  fs.readdir(uploadFolder, (err, files) => {
+    if (err) {
+      res.send(err)
+    }
+    res.send(files)
+  }) // END readdir
+}).post('/Node-js-Uploader', function (req, res) {
   // create an incoming form object
   let form = new formidable.IncomingForm()
   let msgComplete
