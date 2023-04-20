@@ -173,7 +173,7 @@
                                 $('.progress-bar').width('0%');
                                 $('.upload-btn').prop('disabled', false);
                             }
-                            $.get("/Upload-List", function(data, status){
+                            $.get("/api/get-uploads", function(data, status){
                                 console.log("Data: " + data + "\nStatus: " + status);
                                 $("#file-list").empty();
                                 $.each(data, function( index, value ) {

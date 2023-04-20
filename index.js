@@ -25,7 +25,7 @@ express()
   .get('/Creating_a_Promise_Helper_Function_for_your_Mongoose_App', (req, res) => res.render('pages/Creating_a_Promise_Helper_Function_for_your_Mongoose_App'))
   .get('/Interactive-Websites-Image-Zooming', (req, res) => res.render('pages/Interactive-Websites-Image-Zooming'))
   .get('/Common-Coding-Interview-Problems-and-their-Most-Optimal-Solutions',  (req, res) => res.render('pages/Common-Coding-Interview-Problems-and-their-Most-Optimal-Solutions'))
-  .get('/Upload-List', (req, res) => {
+  .get('/api/get-uploads', (req, res) => {
   const uploadFolder = path.join(__dirname, 'public/uploads')
   fs.readdir(uploadFolder, (err, files) => {
     if (err) {
@@ -39,7 +39,7 @@ express()
     form.parse(req, function (err, fields, files) {
  
         let oldPath = files.profilePic.filepath;
-        let newPath = path.join(__dirname, 'uploads')
+        let newPath = path.join(__dirname, 'public/uploads')
             + '/' + files.profilePic.name
         let rawData = fs.readFileSync(oldPath)
  
