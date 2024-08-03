@@ -11,16 +11,11 @@
     "test": "node test.js"
   },
   "dependencies": {
-<<<<<<< HEAD
     "ejs": "^3.1.5",
     "express": "^4.15.2",
     "formidable": "^2.1.1",
     "fs": "^0.0.1-security",
     "nodemailer": "^6.9.1"
-=======
-    "ejs": "^3.1.9",
-    "express": "^4.15.2"
->>>>>>> ad8cf071eacda8d6573efa992fd78c5c47fa8cbe
   },
   "devDependencies": {
     "tape": "^5.7.4"
